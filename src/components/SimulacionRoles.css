@@ -1,0 +1,188 @@
+.simulacion-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  color: #00BCD4;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.descripcion-general {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.rol-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.rol-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-color: #00BCD4;
+}
+
+.rol-card.selected {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.rol-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #00BCD4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.rol-icon .material-icons {
+  color: white;
+  font-size: 30px;
+}
+
+.rol-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.rol-tipo {
+  color: #00BCD4;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.rol-email {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.rol-detalle {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  border-top: 4px solid #00BCD4;
+}
+
+.rol-detalle h2 {
+  color: #00BCD4;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.rol-descripcion {
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.rol-info-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.rol-funciones h3, .rol-rutas h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.rol-funciones ul, .rol-rutas ul {
+  padding-left: 1.5rem;
+  margin: 0;
+}
+
+.rol-funciones li, .rol-rutas li {
+  margin-bottom: 0.5rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.login-button {
+  background: linear-gradient(to right, #00BCD4, #00ACC1);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0, 188, 212, 0.3);
+}
+
+.login-button:hover {
+  background: linear-gradient(to right, #00ACC1, #0097A7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 188, 212, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .roles-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .rol-info-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .simulacion-container {
+    padding: 1rem;
+  }
+  
+  .roles-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .rol-card {
+    padding: 1rem;
+  }
+  
+  .rol-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .rol-icon .material-icons {
+    font-size: 24px;
+  }
+}

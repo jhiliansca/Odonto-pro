@@ -1,0 +1,53 @@
+/* src/components/usuarios/administrador/features/InventorySummary.css */
+.inventory-summary-panel {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.inventory-summary-panel .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.inventory-summary-panel h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.inventory-summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.inventory-category h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.inventory-progress {
+    width: 100%;
+    background-color: #e9ecef;
+    border-radius: 50px;
+    height: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 0.3s ease;
+}
+
+.inventory-stats {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 0.5rem;
+}

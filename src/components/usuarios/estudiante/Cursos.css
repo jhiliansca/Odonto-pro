@@ -1,0 +1,398 @@
+.cursos-container {
+  padding: 1.5rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 0.3rem;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #666;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  background-color: #f0f0f0;
+}
+
+.tab.active {
+  background-color: #00BCD4;
+  color: white;
+}
+
+.cursos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.curso-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.curso-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.curso-card.en_curso {
+  border-top: 4px solid #00BCD4;
+}
+
+.curso-card.completado {
+  border-top: 4px solid #28a745;
+}
+
+.curso-card.pendiente {
+  border-top: 4px solid #ffc107;
+}
+
+.curso-header {
+  margin-bottom: 1rem;
+}
+
+.curso-header h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.curso-instructor {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.curso-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.curso-progress-bar {
+  flex: 1;
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #00BCD4;
+  border-radius: 4px;
+}
+
+.progress-percentage {
+  font-weight: 600;
+  color: #00BCD4;
+  min-width: 40px;
+  text-align: right;
+}
+
+.curso-dates {
+  margin-bottom: 1rem;
+}
+
+.curso-date {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.curso-date .material-icons {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  color: #00BCD4;
+}
+
+.curso-status {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-badge.en_curso {
+  background-color: rgba(0, 188, 212, 0.1);
+  color: #00BCD4;
+}
+
+.status-badge.completado {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.status-badge.pendiente {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.curso-detail-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.curso-detail-section {
+  margin-bottom: 2rem;
+}
+
+.curso-detail-section h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: #333;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
+
+.curso-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item.full-width {
+  grid-column: span 2;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.info-value {
+  color: #333;
+}
+
+.modulos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.modulo-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.modulo-item:hover {
+  background-color: #e8eaf6;
+}
+
+.modulo-item.completado {
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+.modulo-status {
+  margin-right: 1rem;
+}
+
+.modulo-status .material-icons {
+  color: #ccc;
+}
+
+.modulo-item.completado .modulo-status .material-icons {
+  color: #28a745;
+}
+
+.modulo-info {
+  flex: 1;
+}
+
+.modulo-nombre {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.2rem;
+}
+
+.modulo-estado {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.recursos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recurso-item {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.recurso-item:hover {
+  background-color: #e8eaf6;
+}
+
+.recurso-item .material-icons {
+  margin-right: 0.8rem;
+  color: #00BCD4;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.cancel-button {
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cancel-button:hover {
+  background-color: #e9ecef;
+}
+
+.submit-button {
+  padding: 0.5rem 1rem;
+  background-color: #00BCD4;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #00ACC1;
+}
+
+@media (max-width: 768px) {
+  .cursos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .curso-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-item.full-width {
+    grid-column: span 1;
+  }
+}

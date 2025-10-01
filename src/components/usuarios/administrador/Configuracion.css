@@ -1,0 +1,282 @@
+.configuracion-container {
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.save-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #1976d2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.save-button:active {
+  transform: translateY(0);
+}
+
+.save-button.saving {
+  background-color: #90caf9;
+  cursor: wait;
+}
+
+.save-button.saved {
+  background-color: #4caf50;
+}
+
+.save-button .material-icons {
+  font-size: 1.2rem;
+}
+
+.config-layout {
+  display: flex;
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.config-sidebar {
+  width: 250px;
+  background-color: #f5f7fa;
+  border-right: 1px solid #e0e0e0;
+}
+
+.config-tabs {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.config-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.config-tab:hover {
+  background-color: #e8eaf6;
+  color: #3f51b5;
+}
+
+.config-tab.active {
+  background-color: #e8eaf6;
+  color: #3f51b5;
+  border-left-color: #3f51b5;
+  font-weight: 500;
+}
+
+.config-tab .material-icons {
+  font-size: 1.2rem;
+}
+
+.config-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.section-description {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.config-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.config-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.config-item:hover {
+  border-color: #ddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.config-item-info {
+  flex: 1;
+}
+
+.config-item-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 0.3rem 0;
+}
+
+.config-item-description {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.config-item-control {
+  min-width: 150px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Estilos para los controles de configuración */
+.config-text-input,
+.config-number-input,
+.config-select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+
+.config-text-input:focus,
+.config-number-input:focus,
+.config-select:focus {
+  border-color: #2196f3;
+  outline: none;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.toggle-switch label:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + label {
+  background-color: #2196F3;
+}
+
+.toggle-switch input:checked + label:before {
+  transform: translateX(26px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .config-layout {
+    flex-direction: column;
+  }
+  
+  .config-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .config-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0.5rem;
+  }
+  
+  .config-tab {
+    padding: 0.8rem 1rem;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .config-tab.active {
+    border-left-color: transparent;
+    border-bottom-color: #3f51b5;
+  }
+  
+  .config-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .config-item-info {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
+  .config-item-control {
+    width: 100%;
+  }
+}
