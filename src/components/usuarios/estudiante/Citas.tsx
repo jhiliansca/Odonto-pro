@@ -87,7 +87,7 @@ const Citas: React.FC = () => {
 
         <div className="calendar-view">
           <div className="calendar-header">
-            <h2>Septiembre 2025</h2>
+            <h2>Octubre 2025</h2>
             <div className="calendar-navigation">
               <button className="nav-button">
                 <span className="material-icons">chevron_left</span>
