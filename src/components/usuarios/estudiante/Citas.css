@@ -2,45 +2,16 @@
   padding: 1.5rem;
 }
 
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
+.modal-content form {
+  padding: 1.5rem;
 }
 
-.page-header h1 {
-  margin: 0;
-  color: #333;
-  font-size: 1.8rem;
-}
-
-.add-button {
-  display: flex;
-  align-items: center;
-  background-color: #00BCD4;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.add-button:hover {
-  background-color: #00ACC1;
-}
-
-.add-button .material-icons {
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
-}
-
+/* Calendario */
 .calendar-view {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -54,8 +25,9 @@
 
 .calendar-header h2 {
   margin: 0;
-  font-size: 1.3rem;
-  color: #333;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .calendar-navigation {
@@ -64,20 +36,22 @@
 }
 
 .nav-button {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  background-color: #f5f7fa;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .nav-button:hover {
-  background-color: #e8eaf6;
+  background-color: var(--brand-100);
+  color: var(--brand-700);
 }
 
 .calendar-grid {
@@ -87,74 +61,72 @@
 }
 
 .calendar-day {
-  height: 40px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 0.9rem;
-  color: #333;
+  color: var(--text-primary);
+  transition: background 0.15s ease;
+}
+
+.calendar-day:not(.header):not(.disabled):not(.has-event):hover {
+  background-color: var(--bg-muted);
 }
 
 .calendar-day.header {
   font-weight: 600;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .calendar-day.disabled {
-  color: #ccc;
+  color: var(--neutral-300);
 }
 
 .calendar-day.has-event {
-  background-color: rgba(0, 188, 212, 0.1);
-  color: #00BCD4;
+  background: linear-gradient(135deg, var(--brand-500), var(--brand-600));
+  box-shadow: 0 4px 10px color-mix(in srgb, var(--brand-500) 30%, transparent);
+  color: white;
   font-weight: 600;
-  position: relative;
 }
 
-.calendar-day.has-event::after {
-  content: '';
-  position: absolute;
-  bottom: 5px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: #00BCD4;
-}
-
+/* Lista de citas */
 .citas-list {
   margin-top: 2rem;
 }
 
 .citas-list h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-  color: #333;
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .cita-card {
   display: flex;
   align-items: center;
-  background-color: white;
-  border-radius: 8px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  gap: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .cita-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--brand-200);
 }
 
 .cita-card.confirmada {
-  border-left: 4px solid #28a745;
+  border-left: 4px solid #16a34a;
 }
 
 .cita-card.pendiente {
-  border-left: 4px solid #ffc107;
+  border-left: 4px solid #f59e0b;
 }
 
 .cita-fecha {
@@ -162,33 +134,38 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  background-color: #f5f7fa;
-  border-radius: 8px;
-  margin-right: 1rem;
+  width: 56px;
+  height: 62px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-500) 12%, white), color-mix(in srgb, var(--brand-600) 12%, white));
+  border: 1px solid var(--brand-100);
+  border-radius: var(--radius-md);
 }
 
 .fecha-dia {
   font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--brand-700);
 }
 
 .fecha-mes {
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--brand-600);
   text-transform: uppercase;
+  margin-top: 2px;
 }
 
 .cita-info {
   flex: 1;
+  min-width: 0;
 }
 
 .cita-info h3 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.4rem 0;
   font-size: 1rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .cita-detalles {
@@ -197,17 +174,19 @@
   gap: 1rem;
 }
 
-.cita-hora, .cita-tratamiento, .cita-supervisor {
+.cita-hora,
+.cita-tratamiento,
+.cita-supervisor {
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
-  color: #666;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
 }
 
 .cita-detalles .material-icons {
-  font-size: 1rem;
-  margin-right: 0.3rem;
-  color: #00BCD4;
+  font-size: 0.95rem;
+  color: var(--brand-600);
 }
 
 .cita-estado {
@@ -215,21 +194,22 @@
 }
 
 .estado-badge {
-  display: inline-block;
-  padding: 0.3rem 0.8rem;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .estado-badge.confirmada {
-  background-color: rgba(40, 167, 69, 0.1);
-  color: #28a745;
+  background-color: #dcfce7;
+  color: #166534;
 }
 
 .estado-badge.pendiente {
-  background-color: rgba(255, 193, 7, 0.1);
-  color: #ffc107;
+  background-color: #fef3c7;
+  color: #92400e;
 }
 
 .cita-acciones {
@@ -237,160 +217,26 @@
   gap: 0.5rem;
 }
 
-.icon-button {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: #f5f7fa;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.icon-button:hover {
-  background-color: #e8eaf6;
-}
-
-.icon-button .material-icons {
-  font-size: 1.2rem;
-  color: #00BCD4;
-}
-
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.modal-header h2 {
-  margin: 0;
-  font-size: 1.3rem;
-  color: #333;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #666;
-}
-
-.close-button:hover {
-  color: #333;
-}
-
-form {
-  padding: 1.5rem;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #333;
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.cancel-button {
-  padding: 0.5rem 1rem;
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.cancel-button:hover {
-  background-color: #e9ecef;
-}
-
-.submit-button {
-  padding: 0.5rem 1rem;
-  background-color: #00BCD4;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.submit-button:hover {
-  background-color: #00ACC1;
-}
-
 @media (max-width: 768px) {
   .cita-card {
     flex-direction: column;
     align-items: flex-start;
   }
-  
-  .cita-fecha {
-    margin-bottom: 1rem;
-  }
-  
+
   .cita-estado {
     margin: 0.5rem 0;
   }
-  
+
   .cita-acciones {
     align-self: flex-end;
   }
-  
+
   .calendar-grid {
     gap: 0.2rem;
   }
-  
+
   .calendar-day {
-    height: 30px;
+    height: 32px;
     font-size: 0.8rem;
   }
 }

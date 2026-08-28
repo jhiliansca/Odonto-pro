@@ -1,31 +1,32 @@
-// src/components/usuarios/administrador/features/QuickActions.tsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './QuickActions.css';
 
 const QuickActions: React.FC = () => {
-    return (
-        <div className="quick-actions-panel">
-            <h2>Acciones Rápidas</h2>
-            <div className="quick-actions">
-                <button className="action-button">
-                    <span className="material-icons">person_add</span>
-                    <span>Nuevo Usuario</span>
-                </button>
-                <button className="action-button">
-                    <span className="material-icons">assessment</span>
-                    <span>Generar Reporte</span>
-                </button>
-                <button className="action-button">
-                    <span className="material-icons">settings</span>
-                    <span>Configuración</span>
-                </button>
-                <button className="action-button">
-                    <span className="material-icons">event</span>
-                    <span>Programar Evento</span>
-                </button>
-            </div>
-        </div>
-    );
+  const navigate = useNavigate();
+
+  const actions = [
+    { icon: 'person_add', label: 'Nuevo Usuario', path: '/admin/usuarios' },
+    { icon: 'assessment', label: 'Generar Reporte', path: '/admin/reportes' },
+    { icon: 'settings', label: 'Configuración', path: '/admin/configuracion' },
+    { icon: 'event', label: 'Programar Evento', path: '/admin/configuracion' },
+  ];
+
+  return (
+    <div className="quick-actions-panel">
+      <div className="panel-header">
+        <h2>Acciones Rápidas</h2>
+      </div>
+      <div className="quick-actions">
+        {actions.map((action, index) => (
+          <button key={index} className="quick-action-btn" onClick={() => navigate(action.path)}>
+            <span className="material-icons">{action.icon}</span>
+            <span>{action.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default QuickActions;

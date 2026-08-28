@@ -209,14 +209,14 @@ const Practicas: React.FC = () => {
                   )}
                 </div>
                 <div className="practica-actions">
-                  <button className="action-button" onClick={() => handleVerDetalles(practica)}>
+                  <button className="quick-action-btn small" onClick={() => handleVerDetalles(practica)}>
                     <span className="material-icons">visibility</span>
-                    Ver Detalles
+                    <span>Ver Detalles</span>
                   </button>
                   {practica.estado === 'pendiente' && (
-                    <button className="action-button" onClick={() => handleCompletarPractica(practica.id)}>
+                    <button className="quick-action-btn small" onClick={() => handleCompletarPractica(practica.id)}>
                       <span className="material-icons">check_circle</span>
-                      Completar
+                      <span>Completar</span>
                     </button>
                   )}
                 </div>
@@ -274,7 +274,7 @@ const Practicas: React.FC = () => {
                 </div>
                 {selectedPractica.estado === 'pendiente' && (
                   <div className="modal-actions">
-                    <button className="primary-button" onClick={() => {
+                    <button className="submit-button" onClick={() => {
                       handleCompletarPractica(selectedPractica.id);
                       setShowModal(false);
                     }}>
@@ -361,10 +361,10 @@ const Practicas: React.FC = () => {
                   </div>
                 </form>
                 <div className="modal-actions">
-                  <button className="secondary-button" onClick={() => setShowRegistroModal(false)}>
+                  <button className="cancel-button" onClick={() => setShowRegistroModal(false)}>
                     Cancelar
                   </button>
-                  <button className="primary-button" onClick={handleRegistrarPractica}>
+                  <button className="submit-button" onClick={handleRegistrarPractica}>
                     Registrar Práctica
                   </button>
                 </div>

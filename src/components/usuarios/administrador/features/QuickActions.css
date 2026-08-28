@@ -1,52 +1,62 @@
-/* src/components/usuarios/administrador/features/QuickActions.css */
 .quick-actions-panel {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  margin-bottom: 0;
+}
+
+.quick-actions-panel .panel-header {
+  margin-bottom: 1.25rem;
 }
 
 .quick-actions-panel h2 {
-    margin-top: 0;
-    font-size: 1.25rem;
-    color: #333;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 .quick-actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1rem;
 }
 
-.action-button {
-    background-color: #f8f9fa;
-    border: none;
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
+.quick-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.3rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.action-button:hover {
-    background-color: #e9ecef;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+.quick-action-btn:hover {
+  background: var(--brand-50);
+  border-color: var(--brand-200);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
 }
 
-.action-button .material-icons {
-    font-size: 2rem;
-    color: #444;
+.quick-action-btn .material-icons {
+  font-size: 1.8rem;
+  color: var(--brand-600);
 }
 
-.action-button span {
-    font-size: 0.9rem;
-    color: #666;
-    font-weight: 500;
+.quick-action-btn span:not(.material-icons) {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .quick-actions {
+    grid-template-columns: 1fr 1fr;
+  }
 }

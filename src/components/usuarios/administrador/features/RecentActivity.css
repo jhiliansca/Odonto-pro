@@ -1,75 +1,82 @@
-/* src/components/usuarios/administrador/features/RecentActivity.css */
 .recent-activity-panel {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .recent-activity-panel .panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .recent-activity-panel h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: #333;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 .activity-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .activity-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0.75rem;
+  border-radius: 12px;
+  transition: background 0.2s ease;
 }
 
 .activity-item:hover {
-    background-color: #f8f9fa;
+  background: var(--bg);
 }
 
 .activity-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #f1f3f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #555;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  background: var(--brand-50);
+  border: 1px solid var(--brand-100);
+  color: var(--brand-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .activity-icon .material-icons {
-    font-size: 1.25rem;
+  font-size: 1.3rem;
 }
 
 .activity-details {
-    flex: 1;
+  flex: 1;
+  min-width: 0;
 }
 
 .activity-user {
-    font-weight: 600;
-    color: #444;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.92rem;
 }
 
 .activity-action {
-    font-size: 0.9rem;
-    color: #666;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
 .activity-time {
-    font-size: 0.8rem;
-    color: #999;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
 }

@@ -34,6 +34,7 @@ const AcercaDe: React.FC = () => {
       <div className="acerca-de-content">
         <div className="texto-container">
           <div className="texto-inner">
+            <span className="acerca-eyebrow">Conócenos</span>
             <h2>Acerca de Nosotros</h2>
             <div className="separator"></div>
             <p>
@@ -42,11 +43,26 @@ const AcercaDe: React.FC = () => {
             <p>
               Ofrecemos una amplia gama de servicios odontológicos, incluyendo limpiezas profesionales, blanqueamientos, ortodoncia, implantes, endodoncia y odontopediatría. Nuestras instalaciones están equipadas con tecnología de vanguardia para garantizar el mejor cuidado dental.
             </p>
+            <div className="feature-list">
+              <div className="feature-item">
+                <span className="material-icons">verified</span>
+                <span><strong>Equipo especializado:</strong> odontólogos con amplia experiencia.</span>
+              </div>
+              <div className="feature-item">
+                <span className="material-icons">biotech</span>
+                <span><strong>Tecnología de vanguardia:</strong> instalaciones modernas y seguras.</span>
+              </div>
+              <div className="feature-item">
+                <span className="material-icons">favorite</span>
+                <span><strong>Atención familiar:</strong> cuidados para todas las edades.</span>
+              </div>
+            </div>
             <div className="ubicacion-container">
-              <h3>Nuestra Ubicación</h3>
+              <h3><span className="material-icons">place</span> Nuestra Ubicación</h3>
               <p>Estamos ubicados en la Av. Santa Cruz esquina y Calle Tomás Frías. Edificio Continental: Planta Baja.</p>
-              <p>Horario de atención: Lunes a viernes</p>
+              <p className="ubicacion-horario"><span className="material-icons">schedule</span> Horario: Lunes a viernes</p>
               <a href="https://share.google/STcR7B0xZ9S6MaxwL" target="_blank" rel="noopener noreferrer" className="mapa-button">
+                <span className="material-icons">map</span>
                 Ver en Google Maps
               </a>
             </div>
@@ -54,12 +70,14 @@ const AcercaDe: React.FC = () => {
               className="login-redirect-button" 
               onClick={() => navigate('/login')}
             >
-              Iniciar Sesión
+              Acceder al Portal
             </button>
           </div>
         </div>
         <div className="imagen-container">
-          <button className="carousel-button prev" onClick={prevImage}>&lt;</button>
+          <button className="carousel-button prev" onClick={prevImage} aria-label="Anterior">
+            <span className="material-icons">chevron_left</span>
+          </button>
           <div className="carousel-images">
             {images.map((image, index) => (
               <img
@@ -70,7 +88,9 @@ const AcercaDe: React.FC = () => {
               />
             ))}
           </div>
-          <button className="carousel-button next" onClick={nextImage}>&gt;</button>
+          <button className="carousel-button next" onClick={nextImage} aria-label="Siguiente">
+            <span className="material-icons">chevron_right</span>
+          </button>
           <div className="carousel-dots">
             {images.map((_, index) => (
               <span

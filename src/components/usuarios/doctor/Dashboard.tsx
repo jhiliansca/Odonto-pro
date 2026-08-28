@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../DashboardLayout';
 import Card from '../Card';
 import './Dashboard.css';
 
 const DoctorDashboard: React.FC = () => {
-  // Datos de ejemplo para el dashboard
+  const navigate = useNavigate();
   const [stats] = useState({
     totalPatients: 78,
     todayAppointments: 12,
@@ -12,7 +13,6 @@ const DoctorDashboard: React.FC = () => {
     assignedStudents: 8
   });
 
-  // Datos de ejemplo para las citas del día
   const [todayAppointments] = useState([
     { id: 1, patient: 'Laura Martínez', time: '10:30 AM', treatment: 'Limpieza dental', status: 'confirmed' },
     { id: 2, patient: 'Carlos Rodríguez', time: '11:45 AM', treatment: 'Consulta general', status: 'confirmed' },
@@ -21,7 +21,6 @@ const DoctorDashboard: React.FC = () => {
     { id: 5, patient: 'María López', time: '16:30 PM', treatment: 'Blanqueamiento', status: 'pending' },
   ]);
 
-  // Datos de ejemplo para los estudiantes asignados
   const [assignedStudents] = useState([
     { id: 1, name: 'Pedro Gómez', semester: '8vo semestre', specialty: 'Ortodoncia' },
     { id: 2, name: 'Lucía Fernández', semester: '7mo semestre', specialty: 'Odontopediatría' },
@@ -31,40 +30,49 @@ const DoctorDashboard: React.FC = () => {
 
   return (
     <DashboardLayout userType="doctor" userName="Dr. Carlos Mendoza">
-      <div className="doctor-dashboard">
+      <div className="doctor-dashboard" style={{ '--role-color': '#0284c7' } as React.CSSProperties}>
         <div className="dashboard-header">
           <h1>Panel de Doctor</h1>
           <div className="date-display">{new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
         </div>
 
+        <div className="welcome-banner">
+          <div className="welcome-message">
+            <span className="welcome-badge">Consultas</span>
+            <h2>Bienvenido, Dr. Carlos Mendoza</h2>
+            <p>Revisa tus citas del día, supervisa tratamientos y coordina a los estudiantes asignados.</p>
+          </div>
+          <span className="welcome-icon material-icons">medical_services</span>
+        </div>
+
         <div className="stats-grid">
-          <Card 
-            title="Pacientes Totales" 
-            value={stats.totalPatients} 
-            icon="people" 
-            color="#2196f3"
-            onClick={() => console.log('Navegando a pacientes')}
+          <Card
+            title="Pacientes Totales"
+            value={stats.totalPatients}
+            icon="people"
+            color="#0ea5e9"
+            onClick={() => navigate('/doctor/pacientes')}
           />
-          <Card 
-            title="Citas de Hoy" 
-            value={stats.todayAppointments} 
-            icon="event" 
-            color="#4caf50"
-            onClick={() => console.log('Navegando a citas')}
+          <Card
+            title="Citas de Hoy"
+            value={stats.todayAppointments}
+            icon="event"
+            color="#16a34a"
+            onClick={() => navigate('/doctor/citas')}
           />
-          <Card 
-            title="Tratamientos Pendientes" 
-            value={stats.pendingTreatments} 
-            icon="healing" 
-            color="#ff9800"
-            onClick={() => console.log('Navegando a tratamientos')}
+          <Card
+            title="Tratamientos Pendientes"
+            value={stats.pendingTreatments}
+            icon="healing"
+            color="#f59e0b"
+            onClick={() => navigate('/doctor/tratamientos')}
           />
-          <Card 
-            title="Estudiantes Asignados" 
-            value={stats.assignedStudents} 
-            icon="school" 
-            color="#9c27b0"
-            onClick={() => console.log('Navegando a estudiantes')}
+          <Card
+            title="Estudiantes Asignados"
+            value={stats.assignedStudents}
+            icon="school"
+            color="#8b5cf6"
+            onClick={() => navigate('/doctor/estudiantes')}
           />
         </div>
 
@@ -73,7 +81,7 @@ const DoctorDashboard: React.FC = () => {
             <div className="dashboard-panel">
               <div className="panel-header">
                 <h2>Citas del Día</h2>
-                <button className="view-all-button">Ver todas</button>
+                <button className="view-all-button" onClick={() => navigate('/doctor/citas')}>Ver todas</button>
               </div>
               <div className="appointments-list">
                 {todayAppointments.map(appointment => (
@@ -89,10 +97,10 @@ const DoctorDashboard: React.FC = () => {
                       </span>
                     </div>
                     <div className="appointment-actions">
-                      <button className="icon-button">
+                      <button className="icon-button" aria-label="Ver cita">
                         <span className="material-icons">visibility</span>
                       </button>
-                      <button className="icon-button">
+                      <button className="icon-button" aria-label="Editar cita">
                         <span className="material-icons">edit</span>
                       </button>
                     </div>
@@ -105,7 +113,7 @@ const DoctorDashboard: React.FC = () => {
             <div className="dashboard-panel">
               <div className="panel-header">
                 <h2>Estudiantes Asignados</h2>
-                <button className="view-all-button">Ver todos</button>
+                <button className="view-all-button" onClick={() => navigate('/doctor/estudiantes')}>Ver todos</button>
               </div>
               <div className="students-list">
                 {assignedStudents.map(student => (
@@ -119,7 +127,7 @@ const DoctorDashboard: React.FC = () => {
                         <span>{student.semester}</span> • <span>{student.specialty}</span>
                       </div>
                     </div>
-                    <button className="icon-button">
+                    <button className="icon-button" aria-label="Opciones">
                       <span className="material-icons">more_vert</span>
                     </button>
                   </div>
@@ -132,21 +140,23 @@ const DoctorDashboard: React.FC = () => {
         <div className="dashboard-row">
           <div className="dashboard-col wide-col">
             <div className="dashboard-panel">
-              <h2>Acciones Rápidas</h2>
+              <div className="panel-header">
+                <h2>Acciones Rápidas</h2>
+              </div>
               <div className="quick-actions">
-                <button className="action-button">
+                <button className="quick-action-btn" onClick={() => navigate('/doctor/citas')}>
                   <span className="material-icons">add_circle</span>
                   <span>Nueva Cita</span>
                 </button>
-                <button className="action-button">
+                <button className="quick-action-btn" onClick={() => navigate('/doctor/pacientes')}>
                   <span className="material-icons">person_add</span>
                   <span>Nuevo Paciente</span>
                 </button>
-                <button className="action-button">
+                <button className="quick-action-btn" onClick={() => navigate('/doctor/historial')}>
                   <span className="material-icons">assignment</span>
                   <span>Historial Clínico</span>
                 </button>
-                <button className="action-button">
+                <button className="quick-action-btn" onClick={() => navigate('/doctor/estudiantes')}>
                   <span className="material-icons">school</span>
                   <span>Asignar Estudiante</span>
                 </button>

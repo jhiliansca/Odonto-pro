@@ -8,10 +8,18 @@ interface SidebarProps {
   userImage?: string;
 }
 
+const roleMeta: Record<string, { color: string; label: string; icon: string }> = {
+  administrador: { color: '#0d9488', label: 'Administrador', icon: 'admin_panel_settings' },
+  cajero: { color: '#7c3aed', label: 'Asistente de Caja', icon: 'point_of_sale' },
+  doctor: { color: '#0284c7', label: 'Doctor / Docente', icon: 'medical_services' },
+  estudiante: { color: '#f59e0b', label: 'Estudiante', icon: 'school' },
+  inventario: { color: '#059669', label: 'Control de Inventario', icon: 'inventory_2' },
+  proveedor: { color: '#ea580c', label: 'Proveedor', icon: 'local_shipping' },
+};
+
 const Sidebar: React.FC<SidebarProps> = ({ userType, userName, userImage }) => {
   const location = useLocation();
-  
-  // Menú de opciones según el tipo de usuario
+
   const getMenuOptions = () => {
     switch (userType) {
       case 'administrador':
@@ -71,56 +79,45 @@ const Sidebar: React.FC<SidebarProps> = ({ userType, userName, userImage }) => {
     }
   };
 
-  // Colores según el tipo de usuario
-  const getUserColor = () => {
-    switch (userType) {
-      case 'administrador':
-        return '#00BCD4'; // Celeste
-      case 'cajero':
-        return '#00BCD4'; // Celeste
-      case 'doctor':
-        return '#00BCD4'; // Celeste
-      case 'estudiante':
-        return '#00BCD4'; // Celeste
-      case 'inventario':
-        return '#00BCD4'; // Celeste
-      case 'proveedor':
-        return '#00BCD4'; // Celeste
-      default:
-        return '#00BCD4'; // Celeste
-    }
-  };
-
+  const meta = roleMeta[userType] || { color: '#0d9488', label: userType, icon: 'account_circle' };
   const menuOptions = getMenuOptions();
-  const userColor = getUserColor();
 
   return (
-    <div className="sidebar" style={{ '--user-color': userColor } as React.CSSProperties}>
-      <div className="sidebar-header">
-        <div className="user-profile">
-          <div className="user-image">
-            {userImage ? (
-              <img src={userImage} alt={userName} />
-            ) : (
-              <div className="user-avatar">
-                {userName.charAt(0).toUpperCase()}
-              </div>
-            )}
-          </div>
-          <div className="user-info">
-            <h3>{userName}</h3>
-            <p className="user-role">{userType.charAt(0).toUpperCase() + userType.slice(1)}</p>
-          </div>
+    <div className="sidebar" style={{ '--user-color': meta.color } as React.CSSProperties}>
+      <div className="sidebar-brand">
+        <img src="/logoclinica.jpg" alt="Logo Clínica Unifranz" />
+        <div className="sidebar-brand-text">
+          <span className="sidebar-brand-name">Clínica Unifranz</span>
+          <span className="sidebar-brand-sub">Portal de Gestión</span>
+        </div>
+      </div>
+
+      <div className="user-profile">
+        <div className="user-image">
+          {userImage ? (
+            <img src={userImage} alt={userName} />
+          ) : (
+            <div className="user-avatar">{userName.charAt(0).toUpperCase()}</div>
+          )}
+        </div>
+        <div className="user-info">
+          <h3>{userName}</h3>
+          <p className="user-role">
+            <span className="material-icons">{meta.icon}</span>
+            {meta.label}
+          </p>
         </div>
       </div>
 
       <nav className="sidebar-nav">
+        <p className="sidebar-nav-title">Menú de navegación</p>
         <ul>
           {menuOptions.map((option, index) => (
             <li key={index} className={location.pathname === option.path ? 'active' : ''}>
               <Link to={option.path}>
                 <span className="material-icons">{option.icon}</span>
                 <span className="menu-label">{option.label}</span>
+                {location.pathname === option.path && <span className="menu-active-dot" />}
               </Link>
             </li>
           ))}

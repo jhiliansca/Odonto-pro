@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import DashboardLayout from '../DashboardLayout';
 import Card from '../Card';
 import './Reportes.css';
@@ -15,8 +14,7 @@ interface Reporte {
 }
 
 const Reportes: React.FC = () => {
-  const location = useLocation();
-  const [userName, setUserName] = useState('Admin Principal');
+  const userName = 'Admin Principal';
   const [activeTab, setActiveTab] = useState('todos');
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -143,34 +141,10 @@ const Reportes: React.FC = () => {
         </div>
 
         <div className="stats-grid">
-          <Card 
-            title="Total Reportes" 
-            value={stats.total} 
-            icon="assessment" 
-            iconColor="#007bff"
-            backgroundColor="#e3f2fd"
-          />
-          <Card 
-            title="Reportes Financieros" 
-            value={stats.financieros} 
-            icon="attach_money" 
-            iconColor="#28a745"
-            backgroundColor="#d4edda"
-          />
-          <Card 
-            title="Reportes Personales" 
-            value={stats.personales} 
-            icon="person" 
-            iconColor="#6f42c1"
-            backgroundColor="#e6d9f2"
-          />
-          <Card 
-            title="Total Descargas" 
-            value={stats.descargasTotal} 
-            icon="cloud_download" 
-            iconColor="#dc3545"
-            backgroundColor="#fde0e3"
-          />
+          <Card title="Total Reportes" value={stats.total} icon="assessment" color="#0ea5e9" />
+          <Card title="Reportes Financieros" value={stats.financieros} icon="attach_money" color="#16a34a" />
+          <Card title="Reportes Personales" value={stats.personales} icon="person" color="#8b5cf6" />
+          <Card title="Total Descargas" value={stats.descargasTotal} icon="cloud_download" color="#dc2626" />
         </div>
 
         <div className="filter-container">
@@ -262,10 +236,10 @@ const Reportes: React.FC = () => {
                   </div>
                 </div>
                 <div className="reporte-actions">
-                  <button className="action-icon" title="Descargar">
+                  <button className="icon-button" title="Descargar" onClick={(e) => e.stopPropagation()}>
                     <span className="material-icons">download</span>
                   </button>
-                  <button className="action-icon" title="Eliminar">
+                  <button className="icon-button danger" title="Eliminar" onClick={(e) => e.stopPropagation()}>
                     <span className="material-icons">delete</span>
                   </button>
                 </div>

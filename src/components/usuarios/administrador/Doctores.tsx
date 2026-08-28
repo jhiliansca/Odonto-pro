@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import DashboardLayout from '../DashboardLayout';
 import Card from '../Card';
 import './Doctores.css';
@@ -15,8 +14,7 @@ interface Doctor {
 }
 
 const Doctores: React.FC = () => {
-  const location = useLocation();
-  const [userName, setUserName] = useState('Admin Principal');
+  const userName = 'Admin Principal';
   const [activeTab, setActiveTab] = useState('todos');
   const [searchTerm, setSearchTerm] = useState('');
   
@@ -71,34 +69,10 @@ const Doctores: React.FC = () => {
         </div>
 
         <div className="stats-grid">
-          <Card 
-            title="Total Doctores" 
-            value={stats.total} 
-            icon="medical_services" 
-            iconColor="#007bff"
-            backgroundColor="#e3f2fd"
-          />
-          <Card 
-            title="Doctores Activos" 
-            value={stats.activos} 
-            icon="check_circle" 
-            iconColor="#28a745"
-            backgroundColor="#d4edda"
-          />
-          <Card 
-            title="Especialidades" 
-            value={stats.especialidades} 
-            icon="category" 
-            iconColor="#ffc107"
-            backgroundColor="#fff3cd"
-          />
-          <Card 
-            title="Total Pacientes" 
-            value={stats.pacientesTotal} 
-            icon="people" 
-            iconColor="#dc3545"
-            backgroundColor="#fde0e3"
-          />
+          <Card title="Total Doctores" value={stats.total} icon="medical_services" color="#0284c7" />
+          <Card title="Doctores Activos" value={stats.activos} icon="check_circle" color="#16a34a" />
+          <Card title="Especialidades" value={stats.especialidades} icon="category" color="#f59e0b" />
+          <Card title="Total Pacientes" value={stats.pacientesTotal} icon="people" color="#dc2626" />
         </div>
 
         <div className="filter-container">
@@ -149,7 +123,7 @@ const Doctores: React.FC = () => {
           {filteredDoctores.length > 0 ? (
             filteredDoctores.map(doctor => (
               <div key={doctor.id} className="doctor-card" onClick={() => handleDoctorClick(doctor)}>
-                <div className="doctor-avatar" style={{ backgroundColor: doctor.estado === 'activo' ? '#00BCD4' : '#9e9e9e' }}>
+                <div className={`doctor-avatar ${doctor.estado}`}>
                   {doctor.nombre.split(' ')[1].charAt(0).toUpperCase()}
                 </div>
                 <div className="doctor-info">
@@ -161,14 +135,14 @@ const Doctores: React.FC = () => {
                       <span className="material-icons">people</span>
                       {doctor.pacientes} pacientes
                     </span>
-                    <span className={`doctor-estado ${doctor.estado}`}>{doctor.estado}</span>
+                    <span className={`status-badge ${doctor.estado}`}>{doctor.estado}</span>
                   </div>
                 </div>
                 <div className="doctor-actions">
-                  <button className="action-icon">
+                  <button className="icon-button" onClick={(e) => e.stopPropagation()} aria-label="Editar">
                     <span className="material-icons">edit</span>
                   </button>
-                  <button className="action-icon">
+                  <button className="icon-button danger" onClick={(e) => e.stopPropagation()} aria-label="Eliminar">
                     <span className="material-icons">delete</span>
                   </button>
                 </div>

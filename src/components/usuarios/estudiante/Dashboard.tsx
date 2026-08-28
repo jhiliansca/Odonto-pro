@@ -6,7 +6,7 @@ import './Dashboard.css';
 
 const EstudianteDashboard: React.FC = () => {
   const navigate = useNavigate();
-  
+
   const [stats] = useState({
     assignedPatients: 5,
     pendingPractices: 8,
@@ -30,12 +30,11 @@ const EstudianteDashboard: React.FC = () => {
     { id: 4, name: 'Endodoncia', progress: 30, instructor: 'Dra. Sofía Torres' },
   ]);
 
-  // Datos simulados de insumos asignados basados en la tabla de ejemplo
   const [assignedSupplies] = useState([
-    { 
-      id: 1, 
-      subject: 'CIRUGÍA BUCAL', 
-      procedure: 'EXODONCIA SIMPLE', 
+    {
+      id: 1,
+      subject: 'CIRUGÍA BUCAL',
+      procedure: 'EXODONCIA SIMPLE',
       materials: [
         { id: 1, name: 'Tubo de anestesia', quantity: 1, assigned: true },
         { id: 2, name: 'Aguja para carpule (Mediana o larga)', quantity: 1, assigned: true },
@@ -47,10 +46,10 @@ const EstudianteDashboard: React.FC = () => {
       semester: 6,
       status: 'Asignado'
     },
-    { 
-      id: 2, 
-      subject: 'OPERATORIA', 
-      procedure: 'RESINA SIMPLE', 
+    {
+      id: 2,
+      subject: 'OPERATORIA',
+      procedure: 'RESINA SIMPLE',
       materials: [
         { id: 1, name: 'Porción de ionómero de base (1 medida de polvo y 2 gotas de líquido)', quantity: 1, assigned: true },
         { id: 2, name: 'Porción de ácido grabador', quantity: 1, assigned: true },
@@ -60,10 +59,10 @@ const EstudianteDashboard: React.FC = () => {
       semester: 6,
       status: 'Asignado'
     },
-    { 
-      id: 3, 
-      subject: 'OPERATORIA', 
-      procedure: 'RESINA COMPUESTA', 
+    {
+      id: 3,
+      subject: 'OPERATORIA',
+      procedure: 'RESINA COMPUESTA',
       materials: [
         { id: 1, name: 'Porción de ionómero de base (1 medida de polvo y 2 gotas de líquido)', quantity: 1, assigned: true },
         { id: 2, name: 'Porción de ácido grabador', quantity: 1, assigned: true },
@@ -75,12 +74,11 @@ const EstudianteDashboard: React.FC = () => {
     }
   ]);
 
-  // Datos simulados de insumos pendientes por asignar
   const [pendingSupplies] = useState([
-    { 
-      id: 4, 
-      subject: 'OPERATORIA', 
-      procedure: 'INCRUSTACIÓN', 
+    {
+      id: 4,
+      subject: 'OPERATORIA',
+      procedure: 'INCRUSTACIÓN',
       materials: [
         { id: 1, name: 'Porción de ionómero de base (1 medida de polvo y 2 gotas de líquido)', quantity: 1, assigned: false },
         { id: 2, name: 'Medida de alginato', quantity: 1, assigned: false },
@@ -92,10 +90,10 @@ const EstudianteDashboard: React.FC = () => {
       status: 'Pendiente',
       paymentRequired: true
     },
-    { 
-      id: 5, 
-      subject: 'ENDODONCIA', 
-      procedure: 'ENDODONCIA', 
+    {
+      id: 5,
+      subject: 'ENDODONCIA',
+      procedure: 'ENDODONCIA',
       materials: [
         { id: 1, name: 'Limas de primera serie', quantity: 6, assigned: false },
         { id: 2, name: 'Conos de gutapercha de 1ra serie', quantity: 20, assigned: false },
@@ -110,7 +108,6 @@ const EstudianteDashboard: React.FC = () => {
     }
   ]);
 
-  // Estado para controlar los modales
   const [showSupplyDetailModal, setShowSupplyDetailModal] = useState(false);
   const [selectedSupply, setSelectedSupply] = useState<any>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -123,18 +120,15 @@ const EstudianteDashboard: React.FC = () => {
     semester: 6
   });
 
-  // Función para mostrar detalles de insumos
   const handleShowSupplyDetail = (supply: any) => {
     setSelectedSupply(supply);
     setShowSupplyDetailModal(true);
   };
 
-  // Función para mostrar modal de pago
   const handleShowPaymentModal = () => {
     setShowPaymentModal(true);
   };
 
-  // Función para simular subida de comprobante de pago
   const handlePaymentProofUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
@@ -147,13 +141,11 @@ const EstudianteDashboard: React.FC = () => {
     }
   };
 
-  // Función para simular envío de comprobante de pago
   const handleSubmitPayment = () => {
     setShowPaymentModal(false);
     alert('Comprobante de pago enviado con éxito. Se revisará y se asignarán tus insumos pronto.');
   };
 
-  // Función para agregar un nuevo material al formulario
   const handleAddMaterial = () => {
     setNewSupply({
       ...newSupply,
@@ -161,7 +153,6 @@ const EstudianteDashboard: React.FC = () => {
     });
   };
 
-  // Función para actualizar los datos del nuevo insumo
   const handleNewSupplyChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewSupply({
@@ -170,7 +161,6 @@ const EstudianteDashboard: React.FC = () => {
     });
   };
 
-  // Función para actualizar los datos de los materiales
   const handleMaterialChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const updatedMaterials = [...newSupply.materials];
@@ -184,56 +174,92 @@ const EstudianteDashboard: React.FC = () => {
     });
   };
 
-  // Función para simular agregar un nuevo insumo
   const handleSubmitNewSupply = () => {
     setShowAddSupplyModal(false);
     alert('Solicitud de insumos enviada con éxito.');
   };
 
+  const handleShowPracticeDetail = (practice: any) => {
+    alert(`Detalles de la práctica: ${practice.name}\nPaciente: ${practice.patient}\nFecha: ${practice.date}\nSupervisor: ${practice.supervisor}`);
+  };
+
+  const handleCourseClick = (course: any) => {
+    navigate(`/estudiante/cursos?curso=${course.id}`);
+  };
+
+  const handleViewAllPractices = () => {
+    navigate('/estudiante/practicas');
+  };
+
+  const handleViewAllCourses = () => {
+    navigate('/estudiante/cursos');
+  };
+
+  const handleRegisterPractice = () => {
+    navigate('/estudiante/practicas?action=register');
+  };
+
+  const handleRequestSupplies = () => {
+    setShowAddSupplyModal(true);
+  };
+
+  const handleReviewPayments = () => {
+    alert('Funcionalidad de revisión de pagos simulada');
+  };
+
+  const handleConsultTeacher = () => {
+    alert('Funcionalidad de consulta a docente simulada');
+  };
+
   return (
     <DashboardLayout userType="estudiante" userName="Pedro Gómez">
-      <div className="estudiante-dashboard">
+      <div className="estudiante-dashboard" style={{ '--role-color': '#f59e0b' } as React.CSSProperties}>
         <div className="dashboard-header">
           <h1>Panel de Estudiante</h1>
           <div className="date-display">{new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
         </div>
 
+        <div className="welcome-banner">
+          <div className="welcome-message">
+            <span className="welcome-badge">Estudiante · 6to semestre</span>
+            <h2>Bienvenido, Pedro Gómez</h2>
+            <p>Consulta tus insumos asignados, prácticas pendientes y el avance de tus cursos.</p>
+          </div>
+          <span className="welcome-icon material-icons">school</span>
+        </div>
+
         <div className="stats-grid">
-          <Card 
-            title="Pacientes Asignados" 
-            value={stats.assignedPatients} 
+          <Card
+            title="Pacientes Asignados"
+            value={stats.assignedPatients}
             icon="group"
-            iconColor="#007bff"
-            backgroundColor="#e3f2fd"
+            color="#0ea5e9"
             onClick={() => navigate('/estudiante/pacientes')}
           />
-          <Card 
-            title="Prácticas Pendientes" 
-            value={stats.pendingPractices} 
+          <Card
+            title="Prácticas Pendientes"
+            value={stats.pendingPractices}
             icon="pending_actions"
-            iconColor="#dc3545"
-            backgroundColor="#fde0e3"
+            color="#ef4444"
             onClick={() => navigate('/estudiante/practicas')}
           />
-          <Card 
-            title="Insumos Asignados" 
-            value={stats.assignedSupplies} 
+          <Card
+            title="Insumos Asignados"
+            value={stats.assignedSupplies}
             icon="inventory_2"
-            iconColor="#28a745"
-            backgroundColor="#d4edda"
-            onClick={() => navigate('/estudiante/dashboard?section=assigned-supplies')}
+            color="#16a34a"
+            onClick={handleViewAllCourses}
           />
-          <Card 
-            title="Insumos Pendientes" 
-            value={stats.pendingSupplies} 
+          <Card
+            title="Insumos Pendientes"
+            value={stats.pendingSupplies}
             icon="inventory"
-            iconColor="#ffc107"
-            backgroundColor="#fff3cd"
-            onClick={() => navigate('/estudiante/dashboard?section=pending-supplies')}
+            color="#f59e0b"
+            onClick={handleRequestSupplies}
           />
         </div>
 
-        {/* Sección de Insumos Asignados */}
+        {/* Sección de Insumos */}
         <div className="dashboard-row">
           <div className="dashboard-col">
             <div className="dashboard-panel">
@@ -247,8 +273,8 @@ const EstudianteDashboard: React.FC = () => {
                     <div className="supply-icon">
                       <span className="material-icons">
                         {supply.subject.includes('CIRUGÍA') ? 'medical_services' :
-                         supply.subject.includes('OPERATORIA') ? 'construction' :
-                         'science'}
+                          supply.subject.includes('OPERATORIA') ? 'construction' :
+                            'science'}
                       </span>
                     </div>
                     <div className="supply-details">
@@ -259,7 +285,7 @@ const EstudianteDashboard: React.FC = () => {
                       </div>
                       <div className="supply-semester">Semestre: {supply.semester}</div>
                     </div>
-                    <button className="action-button small" onClick={() => handleShowSupplyDetail(supply)}>
+                    <button className="quick-action-btn small" onClick={() => handleShowSupplyDetail(supply)}>
                       <span className="material-icons">visibility</span>
                       <span>Ver</span>
                     </button>
@@ -293,17 +319,17 @@ const EstudianteDashboard: React.FC = () => {
                       </div>
                       <div className="supply-payment-required">
                         {supply.paymentRequired && (
-                          <span className="payment-badge">Requiere pago de hito</span>
+                          <span className="payment-badge"><span className="material-icons">payments</span> Requiere pago de hito</span>
                         )}
                       </div>
                     </div>
                     <div className="supply-actions">
-                      <button className="action-button small" onClick={() => handleShowSupplyDetail(supply)}>
+                      <button className="quick-action-btn small" onClick={() => handleShowSupplyDetail(supply)}>
                         <span className="material-icons">visibility</span>
                         <span>Ver</span>
                       </button>
                       {supply.paymentRequired && (
-                        <button className="action-button small payment" onClick={handleShowPaymentModal}>
+                        <button className="quick-action-btn small payment" onClick={handleShowPaymentModal}>
                           <span className="material-icons">payment</span>
                           <span>Pagar</span>
                         </button>
@@ -330,9 +356,9 @@ const EstudianteDashboard: React.FC = () => {
                     <div className="practice-icon">
                       <span className="material-icons">
                         {practice.name.includes('Limpieza') ? 'cleaning_services' :
-                         practice.name.includes('selladores') ? 'vaccines' :
-                         practice.name.includes('impresiones') ? 'format_color_fill' :
-                         'monitor_heart'}
+                          practice.name.includes('selladores') ? 'vaccines' :
+                            practice.name.includes('impresiones') ? 'format_color_fill' :
+                              'monitor_heart'}
                       </span>
                     </div>
                     <div className="practice-details">
@@ -343,7 +369,7 @@ const EstudianteDashboard: React.FC = () => {
                       </div>
                       <div className="practice-supervisor">Supervisor: {practice.supervisor}</div>
                     </div>
-                    <button className="action-button small" onClick={() => handleShowPracticeDetail(practice)}>
+                    <button className="quick-action-btn small" onClick={() => handleShowPracticeDetail(practice)}>
                       <span className="material-icons">visibility</span>
                       <span>Ver</span>
                     </button>
@@ -367,14 +393,14 @@ const EstudianteDashboard: React.FC = () => {
                     </div>
                     <div className="course-progress-container">
                       <div className="course-progress-bar">
-                        <div 
-                          className="course-progress-fill" 
+                        <div
+                          className="course-progress-fill"
                           style={{ width: `${course.progress}%` }}
                         ></div>
                       </div>
                       <div className="course-progress-text">{course.progress}% completado</div>
                     </div>
-                    <button className="icon-button" onClick={() => handleCourseClick(course)}>
+                    <button className="icon-button" onClick={() => handleCourseClick(course)} aria-label="Ver curso">
                       <span className="material-icons">arrow_forward</span>
                     </button>
                   </div>
@@ -384,7 +410,7 @@ const EstudianteDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Modal para ver detalles de insumos */}
+        {/* Modal: detalles de insumos */}
         {showSupplyDetailModal && selectedSupply && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -428,13 +454,13 @@ const EstudianteDashboard: React.FC = () => {
                 </div>
               </div>
               <div className="modal-footer">
-                <button className="action-button" onClick={() => setShowSupplyDetailModal(false)}>Cerrar</button>
+                <button className="secondary-button" onClick={() => setShowSupplyDetailModal(false)}>Cerrar</button>
               </div>
             </div>
           </div>
         )}
 
-        {/* Modal para subir comprobante de pago */}
+        {/* Modal: comprobante de pago */}
         {showPaymentModal && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -445,17 +471,17 @@ const EstudianteDashboard: React.FC = () => {
                 </button>
               </div>
               <div className="modal-body">
-                <p>Para recibir tus insumos, debes subir el comprobante de pago del hito correspondiente.</p>
+                <p className="modal-help">Para recibir tus insumos, debes subir el comprobante de pago del hito correspondiente.</p>
                 <div className="payment-upload-container">
                   <label htmlFor="payment-proof" className="upload-label">
                     <span className="material-icons">upload_file</span>
                     <span>Seleccionar imagen del comprobante</span>
                   </label>
-                  <input 
-                    type="file" 
-                    id="payment-proof" 
-                    accept="image/*" 
-                    onChange={handlePaymentProofUpload} 
+                  <input
+                    type="file"
+                    id="payment-proof"
+                    accept="image/*"
+                    onChange={handlePaymentProofUpload}
                     style={{ display: 'none' }}
                   />
                   {paymentProofImage && (
@@ -467,8 +493,8 @@ const EstudianteDashboard: React.FC = () => {
               </div>
               <div className="modal-footer">
                 <button className="cancel-button" onClick={() => setShowPaymentModal(false)}>Cancelar</button>
-                <button 
-                  className="action-button" 
+                <button
+                  className="submit-button"
                   onClick={handleSubmitPayment}
                   disabled={!paymentProofImage}
                 >
@@ -479,7 +505,7 @@ const EstudianteDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* Modal para solicitar nuevos insumos */}
+        {/* Modal: solicitar insumos */}
         {showAddSupplyModal && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -492,9 +518,9 @@ const EstudianteDashboard: React.FC = () => {
               <div className="modal-body">
                 <div className="form-group">
                   <label htmlFor="subject">Asignatura</label>
-                  <select 
-                    id="subject" 
-                    name="subject" 
+                  <select
+                    id="subject"
+                    name="subject"
                     value={newSupply.subject}
                     onChange={handleNewSupplyChange}
                     required
@@ -507,10 +533,10 @@ const EstudianteDashboard: React.FC = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="procedure">Procedimiento</label>
-                  <input 
-                    type="text" 
-                    id="procedure" 
-                    name="procedure" 
+                  <input
+                    type="text"
+                    id="procedure"
+                    name="procedure"
                     value={newSupply.procedure}
                     onChange={handleNewSupplyChange}
                     placeholder="Ej. EXODONCIA SIMPLE"
@@ -521,17 +547,17 @@ const EstudianteDashboard: React.FC = () => {
                   <label>Materiales</label>
                   {newSupply.materials.map((material, index) => (
                     <div key={index} className="material-input-group">
-                      <input 
-                        type="text" 
-                        name="name" 
+                      <input
+                        type="text"
+                        name="name"
                         value={material.name}
                         onChange={(e) => handleMaterialChange(index, e)}
                         placeholder="Nombre del material"
                         required
                       />
-                      <input 
-                        type="text" 
-                        name="quantity" 
+                      <input
+                        type="text"
+                        name="quantity"
                         value={material.quantity}
                         onChange={(e) => handleMaterialChange(index, e)}
                         placeholder="Cantidad"
@@ -547,7 +573,7 @@ const EstudianteDashboard: React.FC = () => {
               </div>
               <div className="modal-footer">
                 <button className="cancel-button" onClick={() => setShowAddSupplyModal(false)}>Cancelar</button>
-                <button className="action-button" onClick={handleSubmitNewSupply}>Enviar Solicitud</button>
+                <button className="submit-button" onClick={handleSubmitNewSupply}>Enviar Solicitud</button>
               </div>
             </div>
           </div>
@@ -557,21 +583,23 @@ const EstudianteDashboard: React.FC = () => {
         <div className="dashboard-row">
           <div className="dashboard-col wide-col">
             <div className="dashboard-panel">
-              <h2>Acciones Rápidas</h2>
+              <div className="panel-header">
+                <h2>Acciones Rápidas</h2>
+              </div>
               <div className="quick-actions">
-                <button className="action-button" onClick={handleRegisterPractice}>
+                <button className="quick-action-btn" onClick={handleRegisterPractice}>
                   <span className="material-icons">assignment</span>
                   <span>Registrar Práctica</span>
                 </button>
-                <button className="action-button" onClick={handleRequestSupplies}>
+                <button className="quick-action-btn" onClick={handleRequestSupplies}>
                   <span className="material-icons">inventory_2</span>
                   <span>Solicitar Insumos</span>
                 </button>
-                <button className="action-button" onClick={handleReviewPayments}>
+                <button className="quick-action-btn" onClick={handleReviewPayments}>
                   <span className="material-icons">payment</span>
                   <span>Revisar Pagos</span>
                 </button>
-                <button className="action-button" onClick={handleConsultTeacher}>
+                <button className="quick-action-btn" onClick={handleConsultTeacher}>
                   <span className="material-icons">chat</span>
                   <span>Consultar a Docente</span>
                 </button>
@@ -585,41 +613,3 @@ const EstudianteDashboard: React.FC = () => {
 };
 
 export default EstudianteDashboard;
-
-
-// Función para mostrar detalles de práctica
-const handleShowPracticeDetail = (practice: any) => {
-  alert(`Detalles de la práctica: ${practice.name}\nPaciente: ${practice.patient}\nFecha: ${practice.date}\nSupervisor: ${practice.supervisor}`);
-};
-
-// Función para navegar a la página de cursos con el curso seleccionado
-const handleCourseClick = (course: any) => {
-  navigate(`/estudiante/cursos?curso=${course.id}`);
-};
-
-// Función para navegar a la página de prácticas
-const handleViewAllPractices = () => {
-  navigate('/estudiante/practicas');
-};
-
-// Función para navegar a la página de cursos
-const handleViewAllCourses = () => {
-  navigate('/estudiante/cursos');
-};
-
-// Funciones para las acciones rápidas
-const handleRegisterPractice = () => {
-  navigate('/estudiante/practicas?action=register');
-};
-
-const handleRequestSupplies = () => {
-  setShowAddSupplyModal(true);
-};
-
-const handleReviewPayments = () => {
-  alert('Funcionalidad de revisión de pagos simulada');
-};
-
-const handleConsultTeacher = () => {
-  alert('Funcionalidad de consulta a docente simulada');
-};

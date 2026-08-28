@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import DashboardLayout from '../DashboardLayout';
 import Card from '../Card';
 import './Inventario.css';
@@ -15,8 +14,7 @@ interface Producto {
 }
 
 const Inventario: React.FC = () => {
-  const location = useLocation();
-  const [userName, setUserName] = useState('Admin Principal');
+  const userName = 'Admin Principal';
   const [activeTab, setActiveTab] = useState('todos');
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -129,34 +127,10 @@ const Inventario: React.FC = () => {
         </div>
 
         <div className="stats-grid">
-          <Card 
-            title="Total Productos" 
-            value={stats.total} 
-            icon="inventory_2" 
-            iconColor="#007bff"
-            backgroundColor="#e3f2fd"
-          />
-          <Card 
-            title="Bajo Stock" 
-            value={stats.bajoStock} 
-            icon="warning" 
-            iconColor="#dc3545"
-            backgroundColor="#fde0e3"
-          />
-          <Card 
-            title="Valor Total" 
-            value={`$${stats.valorTotal.toLocaleString()}`} 
-            icon="attach_money" 
-            iconColor="#28a745"
-            backgroundColor="#d4edda"
-          />
-          <Card 
-            title="Categorías" 
-            value={stats.categorias} 
-            icon="category" 
-            iconColor="#ffc107"
-            backgroundColor="#fff3cd"
-          />
+          <Card title="Total Productos" value={stats.total} icon="inventory_2" color="#059669" />
+          <Card title="Bajo Stock" value={stats.bajoStock} icon="warning" color="#dc2626" />
+          <Card title="Valor Total" value={`$${stats.valorTotal.toLocaleString()}`} icon="attach_money" color="#16a34a" />
+          <Card title="Categorías" value={stats.categorias} icon="category" color="#f59e0b" />
         </div>
 
         <div className="filter-container">
@@ -207,10 +181,7 @@ const Inventario: React.FC = () => {
           {filteredProductos.length > 0 ? (
             filteredProductos.map(producto => (
               <div key={producto.id} className="producto-card" onClick={() => handleProductClick(producto)}>
-                <div className="producto-icon" style={{ 
-                  backgroundColor: producto.stock < producto.stockMinimo ? '#fde0e3' : '#e3f2fd',
-                  color: producto.stock < producto.stockMinimo ? '#dc3545' : '#007bff'
-                }}>
+                <div className={`producto-icon ${producto.stock < producto.stockMinimo ? 'bajo' : ''}`}>
                   <span className="material-icons">
                     {producto.categoria === 'materiales' ? 'science' :
                      producto.categoria === 'insumos' ? 'healing' :
@@ -230,10 +201,10 @@ const Inventario: React.FC = () => {
                   <p className="producto-proveedor">{producto.proveedor}</p>
                 </div>
                 <div className="producto-actions">
-                  <button className="action-icon">
+                  <button className="icon-button" onClick={(e) => e.stopPropagation()} aria-label="Editar">
                     <span className="material-icons">edit</span>
                   </button>
-                  <button className="action-icon">
+                  <button className="icon-button danger" onClick={(e) => e.stopPropagation()} aria-label="Eliminar">
                     <span className="material-icons">delete</span>
                   </button>
                 </div>

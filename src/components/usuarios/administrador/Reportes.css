@@ -2,361 +2,192 @@
   padding: 1.5rem;
 }
 
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.page-header h1 {
-  margin: 0;
-  color: #333;
-  font-size: 1.8rem;
-}
-
-.add-button {
-  display: flex;
-  align-items: center;
-  background-color: #00BCD4;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.add-button:hover {
-  background-color: #00ACC1;
-}
-
-.add-button .material-icons {
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.filter-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  background-color: white;
-  border-radius: 8px;
-  padding: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.tabs {
-  display: flex;
-}
-
-.tab {
-  background: none;
-  border: none;
-  padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  color: #666;
-  transition: all 0.3s;
-}
-
-.tab:hover {
-  background-color: #f0f0f0;
-}
-
-.tab.active {
-  background-color: #00BCD4;
-  color: white;
-}
-
-.search-box {
-  display: flex;
-  align-items: center;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  padding: 0.5rem;
-}
-
-.search-box .material-icons {
-  color: #666;
-  margin-right: 0.5rem;
-}
-
-.search-box input {
-  border: none;
-  background: none;
-  outline: none;
-  font-size: 0.9rem;
-  width: 200px;
-}
-
 .reportes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1rem;
 }
 
 .reporte-card {
   display: flex;
-  align-items: center;
-  background-color: white;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  align-items: flex-start;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem;
+  gap: 1rem;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .reporte-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--brand-200);
 }
 
 .reporte-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 1rem;
-}
-
-.reporte-icon.financiero {
-  background-color: #d4edda;
-  color: #28a745;
-}
-
-.reporte-icon.operativo {
-  background-color: #e3f2fd;
-  color: #007bff;
-}
-
-.reporte-icon.inventario {
-  background-color: #fff3cd;
-  color: #ffc107;
-}
-
-.reporte-icon.estudiantes {
-  background-color: #fde0e3;
-  color: #dc3545;
+  background-color: var(--bg-muted);
+  color: var(--text-secondary);
 }
 
 .reporte-icon .material-icons {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.reporte-icon.financiero {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.reporte-icon.operativo {
+  background-color: #e0f2fe;
+  color: #0284c7;
+}
+
+.reporte-icon.inventario {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+.reporte-icon.estudiantes {
+  background-color: #fef3c7;
+  color: #f59e0b;
+}
+
+.reporte-icon.personal {
+  background-color: #ede9fe;
+  color: #7c3aed;
 }
 
 .reporte-info {
   flex: 1;
+  min-width: 0;
 }
 
 .reporte-info h3 {
   margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: #333;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.3;
 }
 
 .reporte-meta {
   display: flex;
   gap: 1rem;
   margin-bottom: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
 }
 
-.reporte-fecha, .reporte-autor {
-  display: flex;
+.reporte-fecha,
+.reporte-autor {
+  display: inline-flex;
   align-items: center;
-  font-size: 0.8rem;
-  color: #666;
+  gap: 0.3rem;
 }
 
-.reporte-fecha .material-icons, .reporte-autor .material-icons {
+.reporte-fecha .material-icons,
+.reporte-autor .material-icons {
   font-size: 0.9rem;
-  margin-right: 0.3rem;
-  color: #666;
+  color: var(--brand-600);
 }
 
 .reporte-tipo-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .reporte-tipo {
-  font-size: 0.75rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
   text-transform: capitalize;
+  background-color: var(--bg-muted);
+  color: var(--text-secondary);
 }
 
 .reporte-tipo.financiero {
-  background-color: #d4edda;
-  color: #28a745;
+  background-color: #dcfce7;
+  color: #166534;
 }
 
 .reporte-tipo.operativo {
-  background-color: #e3f2fd;
-  color: #007bff;
+  background-color: #e0f2fe;
+  color: #075985;
 }
 
 .reporte-tipo.inventario {
-  background-color: #fff3cd;
-  color: #ffc107;
+  background-color: #d1fae5;
+  color: #065f46;
 }
 
 .reporte-tipo.estudiantes {
-  background-color: #fde0e3;
-  color: #dc3545;
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.reporte-tipo.personal {
+  background-color: #ede9fe;
+  color: #5b21b6;
+}
+
+.reporte-asignado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.reporte-asignado .material-icons {
+  font-size: 0.85rem;
 }
 
 .reporte-descargas {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  font-size: 0.8rem;
-  color: #666;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-left: auto;
 }
 
 .reporte-descargas .material-icons {
-  font-size: 0.9rem;
-  margin-right: 0.3rem;
-  color: #666;
+  font-size: 0.85rem;
+  color: var(--brand-600);
 }
 
 .reporte-actions {
   display: flex;
-  gap: 0.5rem;
-}
-
-.action-icon {
-  background: none;
-  border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.action-icon:hover {
-  background-color: #f0f0f0;
-}
-
-.action-icon .material-icons {
-  font-size: 1.1rem;
-  color: #666;
-}
-
-.no-results {
-  grid-column: 1 / -1;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 0.4rem;
 }
 
-.no-results .material-icons {
-  font-size: 3rem;
-  color: #ccc;
-  margin-bottom: 1rem;
-}
-
-.no-results p {
-  color: #666;
-  text-align: center;
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .filter-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .tabs {
-    margin-bottom: 0.5rem;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 0.5rem;
-  }
-  
-  .search-box {
-    width: 100%;
-  }
-  
-  .search-box input {
-    width: 100%;
-  }
-  
-  .reporte-meta {
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
   .reportes-grid {
     grid-template-columns: 1fr;
   }
-}
 
-/* Estilos para reportes personales */
-.reporte-tipo.personal {
-  background-color: #e6d9f2;
-  color: #6f42c1;
-}
+  .reporte-card {
+    flex-wrap: wrap;
+  }
 
-.reporte-icon.personal {
-  background-color: #6f42c1;
-}
-
-.reporte-asignado {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.8rem;
-  color: #6c757d;
-}
-
-.reporte-asignado .material-icons {
-  font-size: 0.9rem;
-}
-
-/* Estilos para el checkbox en el formulario */
-.checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.checkbox-group input[type="checkbox"] {
-  width: auto;
-  margin-right: 0.5rem;
-}
-
-.checkbox-group label {
-  margin-bottom: 0;
+  .reporte-actions {
+    flex-direction: row;
+    margin-left: auto;
+  }
 }

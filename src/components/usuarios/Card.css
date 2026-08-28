@@ -1,38 +1,67 @@
 .dashboard-card {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 1.5rem;
+  --card-accent: var(--user-color, var(--brand-600));
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
   display: flex;
-  flex-direction: column; /* Cambiado para un diseño de card más común */
-  align-items: flex-start;
-  gap: 1.5rem;
-  transition: all 0.3s ease;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--card-accent), color-mix(in srgb, var(--card-accent) 60%, transparent));
+  opacity: 0.9;
 }
 
 .dashboard-card.clickable {
   cursor: pointer;
 }
 
-.dashboard-card.clickable:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, var(--card-accent) 35%, var(--border));
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
 }
 
 .card-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%; /* Cambiado a circular para un look más moderno */
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--card-accent) 14%, #fff);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 25%, var(--border));
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white; /* El color del ícono lo maneja la prop 'iconColor' */
+  color: var(--card-accent);
+  flex-shrink: 0;
 }
 
 .card-icon .material-icons {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin: 0;
-  color: white;
+}
+
+.card-extra {
+  margin-left: auto;
 }
 
 .card-content {
@@ -41,40 +70,42 @@
 }
 
 .card-title {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: #666;
-  font-weight: 500;
+  margin: 0 0 0.2rem 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .card-value {
   margin: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #333;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
-.card-details {
-  margin-top: 1rem;
+.card-value .card-extra {
+  font-size: 0.8rem;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .dashboard-card {
-    padding: 1rem;
-    gap: 1rem;
+    padding: 1.15rem;
   }
-  
+
   .card-icon {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
   }
-  
+
   .card-icon .material-icons {
     font-size: 1.5rem;
   }
-  
+
   .card-value {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 }

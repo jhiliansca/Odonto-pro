@@ -87,11 +87,11 @@ const Pacientes: React.FC = () => {
                 </span>
               </div>
               <div className="paciente-actions">
-                <button className="action-button small">
+                <button className="quick-action-btn small">
                   <span className="material-icons">visibility</span>
                   <span>Ver</span>
                 </button>
-                <button className="action-button small">
+                <button className="quick-action-btn small">
                   <span className="material-icons">edit</span>
                   <span>Editar</span>
                 </button>

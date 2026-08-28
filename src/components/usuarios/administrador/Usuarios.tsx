@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import DashboardLayout from '../DashboardLayout';
 import Card from '../Card';
 import './Usuarios.css';
@@ -14,8 +13,7 @@ interface Usuario {
 }
 
 const Usuarios: React.FC = () => {
-  const location = useLocation();
-  const [userName, setUserName] = useState('Admin Principal');
+  const userName = 'Admin Principal';
   const [activeTab, setActiveTab] = useState('todos');
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -27,8 +25,7 @@ const Usuarios: React.FC = () => {
     confirmPassword: ''
   });
 
-  // Datos simulados de usuarios
-  const [usuarios] = useState<Usuario[]>([
+  const [usuarios, setUsuarios] = useState<Usuario[]>([
     { id: 1, nombre: 'Carlos Mendoza', email: 'carlos@clinica.com', rol: 'doctor', estado: 'activo', fechaRegistro: '15/01/2023' },
     { id: 2, nombre: 'María López', email: 'maria@clinica.com', rol: 'inventario', estado: 'activo', fechaRegistro: '20/02/2023' },
     { id: 3, nombre: 'Juan Pérez', email: 'juan@clinica.com', rol: 'cajero', estado: 'activo', fechaRegistro: '05/03/2023' },
@@ -39,7 +36,6 @@ const Usuarios: React.FC = () => {
     { id: 8, nombre: 'Roberto Sánchez', email: 'roberto@clinica.com', rol: 'proveedor', estado: 'inactivo', fechaRegistro: '20/08/2023' },
   ]);
 
-  // Filtrar usuarios según la pestaña activa y término de búsqueda
   const filteredUsuarios = usuarios.filter(usuario => {
     const matchesTab = activeTab === 'todos' || 
                       (activeTab === 'activos' && usuario.estado === 'activo') ||
@@ -52,7 +48,6 @@ const Usuarios: React.FC = () => {
     return matchesTab && matchesSearch;
   });
 
-  // Estadísticas de usuarios
   const stats = {
     total: usuarios.length,
     activos: usuarios.filter(u => u.estado === 'activo').length,
@@ -60,19 +55,10 @@ const Usuarios: React.FC = () => {
     estudiantes: usuarios.filter(u => u.rol === 'estudiante').length
   };
 
-  // Función para manejar el clic en una card de usuario
   const handleUserClick = (usuario: Usuario) => {
-    console.log('Usuario seleccionado:', usuario);
-    // Aquí se podría abrir un modal o navegar a la página de detalle del usuario
     alert(`Detalles del usuario: ${usuario.nombre}\nEmail: ${usuario.email}\nRol: ${usuario.rol}\nEstado: ${usuario.estado}`);
   };
 
-  // Función para manejar el clic en el botón de nuevo usuario
-  const handleAddUser = () => {
-    setShowModal(true);
-  };
-
-  // Función para cerrar el modal
   const handleCloseModal = () => {
     setShowModal(false);
     setNewUser({
@@ -84,7 +70,6 @@ const Usuarios: React.FC = () => {
     });
   };
 
-  // Función para manejar cambios en el formulario
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewUser(prev => ({
@@ -93,13 +78,10 @@ const Usuarios: React.FC = () => {
     }));
   };
 
-  // Función para guardar el nuevo usuario
   const handleSaveUser = () => {
-    // Aquí iría la lógica para guardar el usuario en la base de datos
-    // Por ahora, solo simulamos añadirlo a la lista local
     if (newUser.nombre && newUser.email && newUser.password && newUser.password === newUser.confirmPassword) {
       const newId = Math.max(...usuarios.map(u => u.id)) + 1;
-      const newUsuario: Usuario = {
+      const nuevoUsuario: Usuario = {
         id: newId,
         nombre: newUser.nombre,
         email: newUser.email,
@@ -107,8 +89,7 @@ const Usuarios: React.FC = () => {
         estado: 'activo',
         fechaRegistro: new Date().toLocaleDateString('es-ES')
       };
-      
-      // En un caso real, aquí se enviaría una petición al servidor
+      setUsuarios([...usuarios, nuevoUsuario]);
       alert(`Usuario ${newUser.nombre} creado exitosamente`);
       handleCloseModal();
     } else {
@@ -121,81 +102,42 @@ const Usuarios: React.FC = () => {
       <div className="usuarios-container">
         <div className="page-header">
           <h1>Gestión de Usuarios</h1>
-          <button className="add-button" onClick={handleAddUser}>
+          <button className="add-button" onClick={() => setShowModal(true)}>
             <span className="material-icons">person_add</span>
             Nuevo Usuario
           </button>
         </div>
 
         <div className="stats-grid">
-          <Card 
-            title="Total Usuarios" 
-            value={stats.total} 
-            icon="people" 
-            iconColor="#007bff"
-            backgroundColor="#e3f2fd"
-          />
-          <Card 
-            title="Usuarios Activos" 
-            value={stats.activos} 
-            icon="check_circle" 
-            iconColor="#28a745"
-            backgroundColor="#d4edda"
-          />
-          <Card 
-            title="Doctores" 
-            value={stats.doctores} 
-            icon="medical_services" 
-            iconColor="#dc3545"
-            backgroundColor="#fde0e3"
-          />
-          <Card 
-            title="Estudiantes" 
-            value={stats.estudiantes} 
-            icon="school" 
-            iconColor="#ffc107"
-            backgroundColor="#fff3cd"
-          />
+          <Card title="Total Usuarios" value={stats.total} icon="people" color="#0ea5e9" />
+          <Card title="Usuarios Activos" value={stats.activos} icon="check_circle" color="#16a34a" />
+          <Card title="Doctores" value={stats.doctores} icon="medical_services" color="#0284c7" />
+          <Card title="Estudiantes" value={stats.estudiantes} icon="school" color="#f59e0b" />
         </div>
 
         <div className="filter-container">
           <div className="tabs">
-            <button 
-              className={`tab ${activeTab === 'todos' ? 'active' : ''}`}
-              onClick={() => setActiveTab('todos')}
-            >
-              Todos
-            </button>
-            <button 
-              className={`tab ${activeTab === 'activos' ? 'active' : ''}`}
-              onClick={() => setActiveTab('activos')}
-            >
-              Activos
-            </button>
-            <button 
-              className={`tab ${activeTab === 'inactivos' ? 'active' : ''}`}
-              onClick={() => setActiveTab('inactivos')}
-            >
-              Inactivos
-            </button>
-            <button 
-              className={`tab ${activeTab === 'doctor' ? 'active' : ''}`}
-              onClick={() => setActiveTab('doctor')}
-            >
-              Doctores
-            </button>
-            <button 
-              className={`tab ${activeTab === 'estudiante' ? 'active' : ''}`}
-              onClick={() => setActiveTab('estudiante')}
-            >
-              Estudiantes
-            </button>
+            {[
+              { key: 'todos', label: 'Todos' },
+              { key: 'activos', label: 'Activos' },
+              { key: 'inactivos', label: 'Inactivos' },
+              { key: 'doctor', label: 'Doctores' },
+              { key: 'estudiante', label: 'Estudiantes' },
+            ].map(tab => (
+              <button
+                key={tab.key}
+                className={`tab ${activeTab === tab.key ? 'active' : ''}`}
+                onClick={() => setActiveTab(tab.key)}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
           <div className="search-box">
             <span className="material-icons">search</span>
-            <input 
-              type="text" 
-              placeholder="Buscar usuario..." 
+            <input
+              type="text"
+              placeholder="Buscar usuario..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -206,22 +148,22 @@ const Usuarios: React.FC = () => {
           {filteredUsuarios.length > 0 ? (
             filteredUsuarios.map(usuario => (
               <div key={usuario.id} className="usuario-card" onClick={() => handleUserClick(usuario)}>
-                <div className="usuario-avatar" style={{ backgroundColor: usuario.estado === 'activo' ? '#00BCD4' : '#9e9e9e' }}>
+                <div className={`usuario-avatar ${usuario.estado}`}>
                   {usuario.nombre.charAt(0).toUpperCase()}
                 </div>
                 <div className="usuario-info">
                   <h3>{usuario.nombre}</h3>
                   <p className="usuario-email">{usuario.email}</p>
                   <div className="usuario-meta">
-                    <span className={`usuario-rol ${usuario.rol}`}>{usuario.rol}</span>
-                    <span className={`usuario-estado ${usuario.estado}`}>{usuario.estado}</span>
+                    <span className={`rol-badge ${usuario.rol}`}>{usuario.rol}</span>
+                    <span className={`status-badge ${usuario.estado}`}>{usuario.estado}</span>
                   </div>
                 </div>
                 <div className="usuario-actions">
-                  <button className="action-icon">
+                  <button className="icon-button" onClick={(e) => e.stopPropagation()} aria-label="Editar">
                     <span className="material-icons">edit</span>
                   </button>
-                  <button className="action-icon">
+                  <button className="icon-button danger" onClick={(e) => e.stopPropagation()} aria-label="Eliminar">
                     <span className="material-icons">delete</span>
                   </button>
                 </div>
@@ -234,6 +176,83 @@ const Usuarios: React.FC = () => {
             </div>
           )}
         </div>
+
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h2>Nuevo Usuario</h2>
+                <button className="close-button" onClick={handleCloseModal}>
+                  <span className="material-icons">close</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="form-group">
+                  <label htmlFor="nombre">Nombre Completo*</label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    value={newUser.nombre}
+                    onChange={handleInputChange}
+                    placeholder="Nombre y apellido"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email*</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={newUser.email}
+                    onChange={handleInputChange}
+                    placeholder="usuario@clinica.com"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="rol">Rol*</label>
+                  <select id="rol" name="rol" value={newUser.rol} onChange={handleInputChange} required>
+                    <option value="estudiante">Estudiante</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="cajero">Cajero</option>
+                    <option value="inventario">Inventario</option>
+                    <option value="proveedor">Proveedor</option>
+                  </select>
+                </div>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="password">Contraseña*</label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      value={newUser.password}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="confirmPassword">Confirmar Contraseña*</label>
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      value={newUser.confirmPassword}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button className="cancel-button" onClick={handleCloseModal}>Cancelar</button>
+                <button className="submit-button" onClick={handleSaveUser}>Guardar Usuario</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );

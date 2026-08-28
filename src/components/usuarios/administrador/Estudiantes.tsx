@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import DashboardLayout from '../DashboardLayout';
 import Card from '../Card';
 import './Estudiantes.css';
@@ -16,8 +15,7 @@ interface Estudiante {
 }
 
 const Estudiantes: React.FC = () => {
-  const location = useLocation();
-  const [userName, setUserName] = useState('Admin Principal');
+  const userName = 'Admin Principal';
   const [activeTab, setActiveTab] = useState('todos');
   const [searchTerm, setSearchTerm] = useState('');
   
@@ -73,34 +71,10 @@ const Estudiantes: React.FC = () => {
         </div>
 
         <div className="stats-grid">
-          <Card 
-            title="Total Estudiantes" 
-            value={stats.total} 
-            icon="school" 
-            iconColor="#007bff"
-            backgroundColor="#e3f2fd"
-          />
-          <Card 
-            title="Estudiantes Activos" 
-            value={stats.activos} 
-            icon="check_circle" 
-            iconColor="#28a745"
-            backgroundColor="#d4edda"
-          />
-          <Card 
-            title="Total Prácticas" 
-            value={stats.practicasTotal} 
-            icon="science" 
-            iconColor="#ffc107"
-            backgroundColor="#fff3cd"
-          />
-          <Card 
-            title="Promedio General" 
-            value={stats.promedioGeneral} 
-            icon="grade" 
-            iconColor="#dc3545"
-            backgroundColor="#fde0e3"
-          />
+          <Card title="Total Estudiantes" value={stats.total} icon="school" color="#f59e0b" />
+          <Card title="Estudiantes Activos" value={stats.activos} icon="check_circle" color="#16a34a" />
+          <Card title="Total Prácticas" value={stats.practicasTotal} icon="science" color="#0ea5e9" />
+          <Card title="Promedio General" value={stats.promedioGeneral} icon="grade" color="#8b5cf6" />
         </div>
 
         <div className="filter-container">
@@ -169,7 +143,7 @@ const Estudiantes: React.FC = () => {
           {filteredEstudiantes.length > 0 ? (
             filteredEstudiantes.map(estudiante => (
               <div key={estudiante.id} className="estudiante-card" onClick={() => handleEstudianteClick(estudiante)}>
-                <div className="estudiante-avatar" style={{ backgroundColor: estudiante.estado === 'activo' ? '#00BCD4' : '#9e9e9e' }}>
+                <div className={`estudiante-avatar ${estudiante.estado}`}>
                   {estudiante.nombre.charAt(0).toUpperCase()}
                 </div>
                 <div className="estudiante-info">
@@ -181,25 +155,18 @@ const Estudiantes: React.FC = () => {
                       <span className="material-icons">science</span>
                       {estudiante.practicas} prácticas
                     </span>
-                    <span className="estudiante-promedio" style={{
-                      backgroundColor: estudiante.promedio >= 90 ? '#d4edda' : 
-                                      estudiante.promedio >= 80 ? '#fff3cd' : 
-                                      estudiante.promedio >= 70 ? '#fde0e3' : '#f8d7da',
-                      color: estudiante.promedio >= 90 ? '#28a745' : 
-                             estudiante.promedio >= 80 ? '#ffc107' : 
-                             estudiante.promedio >= 70 ? '#dc3545' : '#dc3545'
-                    }}>
+                    <span className="estudiante-promedio">
                       <span className="material-icons">grade</span>
                       {estudiante.promedio}
                     </span>
-                    <span className={`estudiante-estado ${estudiante.estado}`}>{estudiante.estado}</span>
+                    <span className={`status-badge ${estudiante.estado}`}>{estudiante.estado}</span>
                   </div>
                 </div>
                 <div className="estudiante-actions">
-                  <button className="action-icon">
+                  <button className="icon-button" onClick={(e) => e.stopPropagation()} aria-label="Editar">
                     <span className="material-icons">edit</span>
                   </button>
-                  <button className="action-icon">
+                  <button className="icon-button danger" onClick={(e) => e.stopPropagation()} aria-label="Eliminar">
                     <span className="material-icons">delete</span>
                   </button>
                 </div>

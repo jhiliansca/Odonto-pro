@@ -13,19 +13,14 @@ const Login: React.FC = () => {
   const [userName, setUserName] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // Verificar si viene de la sroles
+
   useEffect(() => {
     const state = location.state as any;
     if (state?.simulatedLogin) {
-      // Establecer los datos del usuario simulado
       setEmail(state.userEmail || '');
       setPassword(state.userPassword || '123456');
       setUserType(state.userType);
       setUserName(state.userName);
-      
-      // Si queremos autenticar automáticamente, descomentar la siguiente línea
-      // setAuthenticated(true);
     }
   }, [location]);
 
@@ -33,20 +28,14 @@ const Login: React.FC = () => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
-    // Aquí se implementaría la lógica de autenticación real
-    // Por ahora, solo simulamos un proceso de autenticación
+
     try {
-      // Simulación de verificación
       if (email && password) {
-        // Simulación de tiempo de respuesta del servidor
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Simulación de determinación del tipo de usuario basado en el correo
-        // En una aplicación real, esto vendría del backend
+
         let userRole: 'administrador' | 'cajero' | 'doctor' | 'estudiante' | 'inventario' | 'proveedor';
         let name = '';
-        
+
         if (email.includes('admin')) {
           userRole = 'administrador';
           name = 'Admin Principal';
@@ -66,84 +55,114 @@ const Login: React.FC = () => {
           userRole = 'proveedor';
           name = 'Dental Supplies S.A.';
         } else {
-          // Por defecto, asignamos rol de estudiante
           userRole = 'estudiante';
           name = 'Estudiante';
         }
-        
-        // Autenticación exitosa (simulada)
-        console.log('Usuario autenticado:', email, 'Tipo:', userRole);
+
         setUserType(userRole);
         setUserName(name);
         setAuthenticated(true);
       } else {
         setError('Por favor, complete todos los campos');
       }
-    } catch (err) {
+    } catch {
       setError('Error al iniciar sesión. Inténtelo de nuevo.');
-      console.error('Error de autenticación:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  // Si el usuario está autenticado, redirigir al dashboard correspondiente
   if (authenticated && userType && userName) {
     return <UserRedirect userType={userType} userName={userName} />;
   }
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <div className="login-header">
-          <h2>Iniciar Sesión</h2>
-          <div className="login-separator"></div>
+    <div className="auth-page">
+      <div className="auth-brand-panel">
+        <div className="auth-brand-inner">
+          <div className="auth-logo">
+            <img src="/logoclinica.jpg" alt="Logo" />
+            <div>
+              <h2>Clínica Odontológica Unifranz</h2>
+              <p>Portal de usuarios</p>
+            </div>
+          </div>
+          <div className="auth-brand-quote">
+            <h3>Tu salud bucal, en buenas manos</h3>
+            <p>Accede al panel de administración, agenda tus citas, gestiona inventario y mucho más desde un solo lugar.</p>
+          </div>
+          <ul className="auth-benefits">
+            <li><span className="material-icons">check_circle</span> Gestión de citas y pacientes</li>
+            <li><span className="material-icons">check_circle</span> Control de inventario y proveedores</li>
+            <li><span className="material-icons">check_circle</span> Historial clínico y reportes</li>
+            <li><span className="material-icons">check_circle</span> Acceso por rol especializado</li>
+          </ul>
         </div>
-        
-        {error && <div className="login-error">{error}</div>}
-        
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Correo Electrónico</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="ejemplo@correo.com"
-              required
-            />
+      </div>
+
+      <div className="auth-card-panel">
+        <div className="auth-card">
+          <div className="auth-card-header">
+            <span className="auth-eyebrow">Bienvenido de nuevo</span>
+            <h1>Iniciar Sesión</h1>
+            <p>Ingresa tus credenciales para acceder al portal.</p>
           </div>
-          
-          <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Ingrese su contraseña"
-              required
-            />
-          </div>
-          
-          <div className="form-actions">
-            <button 
-              type="submit" 
-              className="login-button" 
-              disabled={loading}
-            >
-              {loading ? 'Procesando...' : 'Iniciar Sesión'}
+
+          {error && <div className="auth-alert"><span className="material-icons">error_outline</span>{error}</div>}
+
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="email">Correo Electrónico</label>
+              <div className="input-control">
+                <span className="material-icons">mail_outline</span>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="ejemplo@correo.com"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Contraseña</label>
+              <div className="input-control">
+                <span className="material-icons">lock_outline</span>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Ingrese su contraseña"
+                  required
+                />
+              </div>
+            </div>
+
+            <button type="submit" className="auth-submit" disabled={loading}>
+              {loading ? <><span className="spinner" /> Procesando...</> : 'Ingresar al Portal'}
             </button>
-          </div>
-          
-          <div className="login-links">
+          </form>
+
+          <div className="auth-links">
             <a href="#" className="forgot-password">¿Olvidó su contraseña?</a>
-            <a onClick={() => navigate('/register')} className="register-link">Registrarse</a>
+            <button className="auth-link-button" onClick={() => navigate('/register')}>¿No tiene cuenta? Regístrese</button>
           </div>
-        </form>
-        
-        <div className="login-hint">
+
+          <div className="auth-demo">
+            <p className="auth-demo-title"><span className="material-icons">info_outline</span> Modo demostración</p>
+            <p>Use un correo con la palabra del rol para ingresar:</p>
+            <div className="auth-demo-chips">
+              <span>admin@correo.com</span>
+              <span>doctor@correo.com</span>
+              <span>estudiante@correo.com</span>
+              <span>cajero@correo.com</span>
+              <span>inventario@correo.com</span>
+              <span>proveedor@correo.com</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

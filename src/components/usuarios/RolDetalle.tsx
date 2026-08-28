@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './RolDetalle.css';
 
 interface RolDetalleProps {
@@ -7,15 +7,32 @@ interface RolDetalleProps {
   userName: string;
 }
 
+const roleColors: Record<string, string> = {
+  administrador: '#0d9488',
+  cajero: '#7c3aed',
+  doctor: '#0284c7',
+  estudiante: '#f59e0b',
+  inventario: '#059669',
+  proveedor: '#ea580c',
+};
+
+const roleLabels: Record<string, string> = {
+  administrador: 'Administrador',
+  cajero: 'Asistente de Caja',
+  doctor: 'Doctor / Docente',
+  estudiante: 'Estudiante',
+  inventario: 'Control de Inventario',
+  proveedor: 'Proveedor',
+};
+
 const RolDetalle: React.FC<RolDetalleProps> = ({ userType, userName }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  
-  // Información detallada para cada rol
+
   const getRolInfo = () => {
     switch (userType) {
       case 'administrador':
         return {
+          icon: 'admin_panel_settings',
           titulo: 'Panel de Administración',
           descripcion: 'Bienvenido al panel de administración de la Clínica Odontológica Unifranz. Desde aquí puede gestionar todos los aspectos del sistema.',
           funcionalidades: [
@@ -29,6 +46,7 @@ const RolDetalle: React.FC<RolDetalleProps> = ({ userType, userName }) => {
         };
       case 'cajero':
         return {
+          icon: 'point_of_sale',
           titulo: 'Panel de Caja',
           descripcion: 'Bienvenido al panel de caja de la Clínica Odontológica Unifranz. Desde aquí puede gestionar pagos, facturas y clientes.',
           funcionalidades: [
@@ -40,6 +58,7 @@ const RolDetalle: React.FC<RolDetalleProps> = ({ userType, userName }) => {
         };
       case 'doctor':
         return {
+          icon: 'medical_services',
           titulo: 'Panel de Doctor',
           descripcion: 'Bienvenido al panel de doctor de la Clínica Odontológica Unifranz. Desde aquí puede gestionar pacientes, citas y tratamientos.',
           funcionalidades: [
@@ -52,6 +71,7 @@ const RolDetalle: React.FC<RolDetalleProps> = ({ userType, userName }) => {
         };
       case 'estudiante':
         return {
+          icon: 'school',
           titulo: 'Panel de Estudiante',
           descripcion: 'Bienvenido al panel de estudiante de la Clínica Odontológica Unifranz. Desde aquí puede gestionar sus prácticas clínicas y cursos.',
           funcionalidades: [
@@ -63,6 +83,7 @@ const RolDetalle: React.FC<RolDetalleProps> = ({ userType, userName }) => {
         };
       case 'inventario':
         return {
+          icon: 'inventory_2',
           titulo: 'Panel de Inventario',
           descripcion: 'Bienvenido al panel de inventario de la Clínica Odontológica Unifranz. Desde aquí puede gestionar productos, proveedores y pedidos.',
           funcionalidades: [
@@ -75,6 +96,7 @@ const RolDetalle: React.FC<RolDetalleProps> = ({ userType, userName }) => {
         };
       case 'proveedor':
         return {
+          icon: 'local_shipping',
           titulo: 'Panel de Proveedor',
           descripcion: 'Bienvenido al panel de proveedor de la Clínica Odontológica Unifranz. Desde aquí puede gestionar sus productos, pedidos y entregas.',
           funcionalidades: [
@@ -86,6 +108,7 @@ const RolDetalle: React.FC<RolDetalleProps> = ({ userType, userName }) => {
         };
       default:
         return {
+          icon: 'account_circle',
           titulo: 'Panel de Usuario',
           descripcion: 'Bienvenido al sistema de la Clínica Odontológica Unifranz.',
           funcionalidades: []
@@ -94,40 +117,44 @@ const RolDetalle: React.FC<RolDetalleProps> = ({ userType, userName }) => {
   };
 
   const rolInfo = getRolInfo();
+  const color = roleColors[userType] || '#0d9488';
+  const label = roleLabels[userType] || userType;
+  const firstPath = userType === 'administrador' ? '/admin/dashboard' : `/${userType}/dashboard`;
 
   const handleContinuar = () => {
-    // Redirigir al dashboard correspondiente
-    navigate(`/${userType}/dashboard`);
+    navigate(firstPath);
   };
 
   const handleVolver = () => {
-    // Volver a la página de simulación de roles
     navigate('/simulacion-roles');
   };
 
   return (
-    <div className="rol-detalle-container">
+    <div className="rol-detalle-page" style={{ '--rol-color': color } as React.CSSProperties}>
       <div className="rol-detalle-header">
-        <h1>{rolInfo.titulo}</h1>
-        <div className="user-info">
-          <div className="user-avatar" style={{ backgroundColor: '#00BCD4' }}>
-            {userName.charAt(0).toUpperCase()}
+        <div className="rol-detalle-title">
+          <span className="rol-detalle-icon"><span className="material-icons">{rolInfo.icon}</span></span>
+          <div>
+            <h1>{rolInfo.titulo}</h1>
+            <p>{rolInfo.descripcion}</p>
           </div>
+        </div>
+        <div className="user-info-card">
+          <div className="user-avatar">{userName.charAt(0).toUpperCase()}</div>
           <div className="user-details">
             <h3>{userName}</h3>
-            <p>{userType.charAt(0).toUpperCase() + userType.slice(1)}</p>
+            <p>{label}</p>
           </div>
         </div>
       </div>
 
       <div className="rol-detalle-content">
-        <p className="rol-descripcion">{rolInfo.descripcion}</p>
-
         <div className="funcionalidades-container">
           <h2>Funcionalidades Disponibles</h2>
           <div className="funcionalidades-grid">
             {rolInfo.funcionalidades.map((func, index) => (
               <div key={index} className="funcionalidad-card">
+                <span className="func-index">{String(index + 1).padStart(2, '0')}</span>
                 <h3>{func.nombre}</h3>
                 <p>{func.descripcion}</p>
               </div>
@@ -137,10 +164,12 @@ const RolDetalle: React.FC<RolDetalleProps> = ({ userType, userName }) => {
 
         <div className="rol-detalle-actions">
           <button className="action-button secondary" onClick={handleVolver}>
+            <span className="material-icons">arrow_back</span>
             Volver a Simulación
           </button>
           <button className="action-button primary" onClick={handleContinuar}>
             Continuar al Dashboard
+            <span className="material-icons">arrow_forward</span>
           </button>
         </div>
       </div>

@@ -173,25 +173,28 @@ Los precios pueden variar según el caso específico y el plan de tratamiento.`
       }
     }
   };
-// Justo antes del return (
 const toggleChat = () => {
-  setIsOpen(!isOpen);
-};
-  // ... resto del código del componente se mantiene igual ...
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="chatbot-container">
-      <button 
-        className="chat-toggle" 
+      <button
+        className="chat-toggle"
         onClick={toggleChat}
         aria-label={isOpen ? 'Cerrar chat' : 'Abrir chat'}
       >
-        {isOpen ? '✕' : '💬'}
+        <span className="material-icons">{isOpen ? 'close' : 'chat'}</span>
       </button>
 
       {isOpen && (
         <div className="chat-window">
           <div className="chat-header">
-            <h3>Chat con Clínica Odontológica Unifranz</h3>
+            <span className="material-icons">support_agent</span>
+            <div>
+              <h3>Asistente Virtual</h3>
+              <p>Clínica Odontológica Unifranz</p>
+            </div>
           </div>
 
           <div className="messages-container">
@@ -200,17 +203,17 @@ const toggleChat = () => {
                 key={index}
                 className={`message ${message.isUser ? 'user-message' : 'bot-message'}`}
               >
-                <span className="message-icon">
-                  {message.isUser ? '👤' : '🦷'}
+                <span className="message-icon material-icons">
+                  {message.isUser ? 'person' : 'medical_services'}
                 </span>
                 <div className="message-text">{message.text}</div>
               </div>
             ))}
             {isLoading && (
               <div className="message bot-message loading">
-                <span className="message-icon">🦷</span>
+                <span className="message-icon material-icons">medical_services</span>
                 <div className="message-text">
-                  <span className="typing-indicator">Escribiendo</span>
+                  <span className="typing-indicator"><span></span><span></span><span></span></span>
                 </div>
               </div>
             )}
@@ -227,12 +230,13 @@ const toggleChat = () => {
               rows={1}
               className="chat-input"
             />
-            <button 
-              onClick={handleSendMessage} 
+            <button
+              onClick={handleSendMessage}
               disabled={isLoading || inputText.trim() === ''}
               className="send-button"
+              aria-label="Enviar mensaje"
             >
-              {isLoading ? '...' : '📤'}
+              <span className="material-icons">send</span>
             </button>
           </div>
         </div>

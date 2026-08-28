@@ -1,157 +1,247 @@
-.rol-detalle-container {
-  max-width: 1200px;
+.user-redirect-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.redirect-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 3rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.loader-spinner {
+  width: 56px;
+  height: 56px;
+  border: 5px solid var(--brand-100);
+  border-top: 5px solid var(--brand-600);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.25rem;
+}
+
+.redirect-loader p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   RolDetalle
+   ============================================================ */
+.rol-detalle-page {
+  --rol-color: #0d9488;
+  min-height: 100vh;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  font-family: 'Roboto', sans-serif;
+  padding: 2.5rem 2rem;
+  animation: fadeInUp 0.35s ease;
 }
 
 .rol-detalle-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e0e0e0;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.25rem;
 }
 
-.rol-detalle-header h1 {
-  color: #00BCD4;
-  margin: 0;
+.rol-detalle-title {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  max-width: 720px;
+}
+
+.rol-detalle-icon {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--rol-color), color-mix(in srgb, var(--rol-color) 60%, #0f172a));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 24px -10px color-mix(in srgb, var(--rol-color) 60%, transparent);
+}
+
+.rol-detalle-icon .material-icons {
   font-size: 1.8rem;
 }
 
-.user-info {
+.rol-detalle-title h1 {
+  margin: 0 0 0.4rem;
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.rol-detalle-title p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.user-info-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.4rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .user-avatar {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  background-color: #00BCD4;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--rol-color), color-mix(in srgb, var(--rol-color) 60%, #0f172a));
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 800;
+  box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--rol-color) 60%, transparent);
 }
 
 .user-details h3 {
-  margin: 0 0 0.3rem 0;
-  color: #333;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .user-details p {
   margin: 0;
-  color: #00BCD4;
-  font-weight: 500;
-}
-
-.rol-descripcion {
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-}
-
-.funcionalidades-container {
-  margin-bottom: 2rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--rol-color);
 }
 
 .funcionalidades-container h2 {
-  color: #333;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
 }
 
 .funcionalidades-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
 }
 
 .funcionalidad-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  border-left: 4px solid #00BCD4;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.4rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.funcionalidad-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, var(--rol-color) 30%, var(--border));
+}
+
+.func-index {
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--rol-color);
+  background: color-mix(in srgb, var(--rol-color) 12%, #fff);
+  border: 1px solid color-mix(in srgb, var(--rol-color) 25%, var(--border));
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: 0.8rem;
 }
 
 .funcionalidad-card h3 {
-  color: #00BCD4;
-  margin: 0 0 0.8rem 0;
-  font-size: 1.2rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
 }
 
 .funcionalidad-card p {
-  color: #666;
   margin: 0;
-  line-height: 1.5;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.55;
 }
 
 .rol-detalle-actions {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
+  justify-content: flex-end;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-top: 2.25rem;
 }
 
 .action-button {
-  padding: 0.8rem 2rem;
-  border-radius: 30px;
-  font-size: 1rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
   border: none;
+  transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.action-button .material-icons {
+  font-size: 1.2rem;
 }
 
 .action-button.primary {
-  background: linear-gradient(to right, #00BCD4, #00ACC1);
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 188, 212, 0.3);
+  background: linear-gradient(135deg, var(--rol-color), color-mix(in srgb, var(--rol-color) 70%, #0f172a));
+  color: #fff;
+  box-shadow: 0 10px 22px -10px color-mix(in srgb, var(--rol-color) 60%, transparent);
 }
 
 .action-button.primary:hover {
-  background: linear-gradient(to right, #00ACC1, #0097A7);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 188, 212, 0.4);
+  filter: brightness(1.08);
+  transform: translateY(-1px);
 }
 
 .action-button.secondary {
-  background: white;
-  color: #00BCD4;
-  border: 2px solid #00BCD4;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
 }
 
 .action-button.secondary:hover {
-  background: #E1F5FE;
-  transform: translateY(-2px);
+  background: var(--bg);
+  transform: translateY(-1px);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .rol-detalle-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+@media (max-width: 720px) {
+  .rol-detalle-page {
+    padding: 1.5rem 1.25rem;
   }
-  
-  .funcionalidades-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .rol-detalle-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .action-button {
-    width: 100%;
-    max-width: 300px;
+  .rol-detalle-title h1 {
+    font-size: 1.5rem;
   }
 }

@@ -1,38 +1,78 @@
 .sidebar {
   width: 280px;
   height: 100vh;
-  background-color: #ffffff;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(180deg, #0f172a 0%, #16233b 100%);
+  color: #fff;
   display: flex;
   flex-direction: column;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 100;
-  --user-color: #00BCD4; /* Color por defecto, se sobrescribe con props */
+  box-shadow: 4px 0 24px -12px rgba(15, 23, 42, 0.5);
+  --user-color: #0d9488;
 }
 
-.sidebar-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+/* ---------------- Marca ---------------- */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.4rem 1.4rem 1rem;
 }
 
+.sidebar-brand img {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.14);
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.sidebar-brand-name {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.sidebar-brand-sub {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ---------------- Perfil del usuario ---------------- */
 .user-profile {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.9rem;
+  margin: 0 1.1rem 0.9rem;
+  padding: 1rem;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--user-color) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--user-color) 35%, transparent);
+  backdrop-filter: blur(4px);
 }
 
 .user-image {
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   overflow: hidden;
-  background-color: var(--user-color);
+  background: linear-gradient(135deg, var(--user-color), color-mix(in srgb, var(--user-color) 55%, #fff));
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.16), 0 6px 14px -6px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
 }
 
 .user-image img {
@@ -47,34 +87,60 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.8rem;
-  font-weight: bold;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 800;
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .user-info h3 {
   margin: 0;
-  font-size: 1.2rem;
-  color: #333;
-  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-role {
   margin: 0;
-  font-size: 0.9rem;
-  color: var(--user-color);
-  font-weight: 500;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
+.user-role .material-icons {
+  font-size: 0.95rem;
+  color: var(--user-color);
+}
+
+/* ---------------- Navegación ---------------- */
 .sidebar-nav {
   flex: 1;
   overflow-y: auto;
-  padding: 1.5rem 0;
+  padding: 0.5rem 0;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav-title {
+  margin: 0 1.4rem 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .sidebar-nav ul {
@@ -84,87 +150,133 @@
 }
 
 .sidebar-nav li {
-  margin-bottom: 0.5rem;
+  margin: 0.2rem 0.75rem;
 }
 
 .sidebar-nav li a {
   display: flex;
   align-items: center;
-  padding: 0.8rem 1.5rem;
-  color: #555;
+  gap: 0.9rem;
+  padding: 0.72rem 1rem;
+  color: rgba(255, 255, 255, 0.68);
   text-decoration: none;
-  transition: all 0.3s ease;
-  border-left: 4px solid transparent;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  position: relative;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-nav li a .material-icons {
+  font-size: 1.3rem;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .sidebar-nav li a:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: var(--user-color);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  transform: translateX(2px);
 }
 
 .sidebar-nav li.active a {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: var(--user-color);
-  border-left: 4px solid var(--user-color);
-  font-weight: 500;
+  background: linear-gradient(135deg, var(--user-color), color-mix(in srgb, var(--user-color) 72%, #0f172a));
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--user-color) 70%, transparent);
 }
 
-.material-icons {
-  margin-right: 1rem;
-  font-size: 1.3rem;
+.menu-active-dot {
+  margin-left: auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
 }
 
+.menu-label {
+  white-space: nowrap;
+}
+
+/* ---------------- Footer ---------------- */
 .sidebar-footer {
-  padding: 1.5rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .logout-button {
   display: flex;
   align-items: center;
-  padding: 0.8rem 1rem;
-  background-color: rgba(0, 0, 0, 0.05);
-  color: #555;
+  gap: 0.9rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .logout-button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  color: var(--user-color);
+  background: rgba(220, 38, 38, 0.18);
+  color: #fca5a5;
+}
+
+.logout-button .material-icons {
+  font-size: 1.25rem;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .sidebar {
-    width: 70px;
-    overflow: hidden;
+    width: 72px;
   }
 
-  .user-info, .menu-label {
+  .sidebar-brand {
+    justify-content: center;
+    padding: 1.1rem 0.5rem;
+  }
+
+  .sidebar-brand-text,
+  .user-info,
+  .menu-label,
+  .menu-active-dot,
+  .sidebar-nav-title {
     display: none;
   }
 
-  .user-image {
+  .sidebar-brand img {
     width: 40px;
     height: 40px;
   }
 
+  .user-profile {
+    justify-content: center;
+    margin: 0 0.6rem 0.75rem;
+    padding: 0.6rem;
+  }
+
+  .user-image {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sidebar-nav li {
+    margin: 0.15rem 0.4rem;
+  }
+
   .sidebar-nav li a {
     justify-content: center;
-    padding: 1rem;
-  }
-
-  .material-icons {
-    margin-right: 0;
-  }
-
-  .logout-button span:not(.material-icons) {
-    display: none;
+    padding: 0.7rem;
   }
 
   .logout-button {
     justify-content: center;
+    padding: 0.7rem;
+  }
+
+  .logout-button span:not(.material-icons) {
+    display: none;
   }
 }
