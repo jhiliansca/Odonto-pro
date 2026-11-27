@@ -1,0 +1,46 @@
+/* Citas - diseo visual Odonto-Pro */
+.citas-page .citas-hero { background: linear-gradient(135deg,#0f766e 0%,#0d9488 55%,#14b8a6 100%); color:#fff; padding:1.5rem 1.75rem; border-radius:20px; margin-bottom:1.25rem; display:flex; justify-content:space-between; gap:1rem; align-items:center; box-shadow:0 12px 30px rgba(13,148,136,.22); }
+.citas-kicker { display:inline-block; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; background:rgba(255,255,255,.16); padding:.3rem .65rem; border-radius:99px; margin-bottom:.55rem; }
+.citas-hero h1 { color:#fff; margin:0 0 .3rem; font-size:1.9rem; }
+.citas-hero .ext-sub { color:rgba(255,255,255,.88); margin:0; max-width:680px; }
+.citas-hero-stat { display:flex; align-items:center; gap:.8rem; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); padding:.9rem 1.1rem; border-radius:16px; backdrop-filter: blur(4px); }
+.citas-hero-stat .material-icons { font-size:2rem; }
+.citas-hero-stat strong { display:block; font-size:1.6rem; line-height:1; }
+.citas-hero-stat span:last-child { font-size:.8rem; opacity:.9; }
+.citas-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.85rem; margin-bottom:1rem; }
+.citas-stat { display:flex; align-items:center; gap:.8rem; padding:1rem; border-radius:16px; border:1px solid var(--border); background:var(--surface); cursor:pointer; text-align:left; transition:.2s; }
+.citas-stat:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.citas-stat.active { box-shadow:0 0 0 2px currentColor; }
+.citas-stat-icon { width:44px; height:44px; border-radius:12px; display:grid; place-items:center; }
+.citas-stat strong { display:block; font-size:1.35rem; line-height:1.1; color:var(--text-primary); }
+.citas-stat span:last-child { font-size:.8rem; color:var(--text-muted); }
+.citas-stat.pendiente { color:#d97706; } .citas-stat.pendiente .citas-stat-icon{background:#fef3c7;color:#d97706;}
+.citas-stat.confirmada { color:#0284c7; } .citas-stat.confirmada .citas-stat-icon{background:#e0f2fe;color:#0284c7;}
+.citas-stat.completada { color:#059669; } .citas-stat.completada .citas-stat-icon{background:#d1fae5;color:#059669;}
+.citas-stat.cancelada { color:#dc2626; } .citas-stat.cancelada .citas-stat-icon{background:#fee2e2;color:#dc2626;}
+.citas-toolbar { margin-bottom:1rem; }
+.citas-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1rem; }
+.cita-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:1.15rem; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:.9rem; position:relative; overflow:hidden; }
+.cita-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#cbd5e1; }
+.cita-card.estado-pendiente::before{background:#f59e0b;} .cita-card.estado-confirmada::before{background:#0ea5e9;} .cita-card.estado-completada::before{background:#10b981;} .cita-card.estado-cancelada::before{background:#ef4444;}
+.cita-card-top { display:flex; justify-content:space-between; gap:.75rem; align-items:flex-start; }
+.cita-fecha span:last-child { display:block; font-size:.78rem; color:var(--text-muted); margin-top:.15rem; }
+.cita-hora { display:inline-flex; padding:.3rem .65rem; border-radius:10px; background:#f0fdfa; color:#0f766e; font-weight:700; font-size:.85rem; }
+.cita-persona { display:flex; gap:.75rem; align-items:center; }
+.cita-avatar { width:44px; height:44px; border-radius:14px; background:linear-gradient(135deg,#ccfbf1,#99f6e4); color:#0f766e; font-weight:700; display:grid; place-items:center; flex-shrink:0; }
+.cita-persona strong { display:block; color:var(--text-primary); font-size:.98rem; }
+.cita-persona span { color:var(--text-muted); font-size:.8rem; }
+.cita-detalles { display:grid; gap:.55rem; }
+.cita-detalle { display:flex; gap:.6rem; align-items:flex-start; padding:.55rem .65rem; border-radius:12px; background:var(--bg-muted); }
+.cita-detalle .material-icons { font-size:1.05rem; color:var(--brand-600); margin-top:.05rem; }
+.cita-detalle small { display:block; font-size:.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; }
+.cita-detalle strong { font-size:.85rem; color:var(--text-primary); }
+.cita-acciones { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:auto; padding-top:.2rem; }
+.cita-btn { border:none; border-radius:10px; padding:.55rem .75rem; font-size:.78rem; font-weight:600; display:inline-flex; align-items:center; gap:.35rem; cursor:pointer; }
+.cita-btn .material-icons { font-size:1rem; }
+.cita-btn.confirmar { background:#e0f2fe; color:#0369a1; } .cita-btn.confirmar:hover{background:#bae6fd;}
+.cita-btn.completar { background:#d1fae5; color:#047857; } .cita-btn.completar:hover{background:#a7f3d0;}
+.cita-btn.cancelar { background:#fee2e2; color:#dc2626; } .cita-btn.cancelar:hover{background:#fecaca;}
+.cita-finalizada { font-size:.78rem; color:var(--text-muted); padding:.45rem 0; }
+@media (max-width: 900px) { .citas-stats { grid-template-columns: repeat(2,1fr); } .citas-page .citas-hero { flex-direction:column; align-items:stretch; } }
+@media (max-width: 560px) { .citas-stats { grid-template-columns: 1fr; } .citas-grid { grid-template-columns:1fr; } }

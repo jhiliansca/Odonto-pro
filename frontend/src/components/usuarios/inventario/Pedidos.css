@@ -1,0 +1,577 @@
+.ped-container .page-header h1 {
+  margin-bottom: 0.15rem;
+}
+
+.ped-subtitulo {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  max-width: 640px;
+}
+
+/* ---------------------- Resumen por estado ---------------------- */
+.ped-resumen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.ped-resumen-item {
+  --estado-color: var(--brand-600);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ped-resumen-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, var(--estado-color) 40%, var(--border));
+}
+
+.ped-resumen-item.activo {
+  border-color: color-mix(in srgb, var(--estado-color) 55%, var(--border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--estado-color) 14%, transparent);
+}
+
+.ped-resumen-item > .material-icons {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 1.4rem;
+  color: var(--estado-color);
+  background: color-mix(in srgb, var(--estado-color) 13%, #fff);
+}
+
+.ped-resumen-datos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.ped-resumen-datos strong {
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--text);
+}
+
+.ped-resumen-datos > span {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ped-resumen-barra {
+  margin-top: 0.35rem;
+  height: 5px;
+  border-radius: 99px;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+.ped-resumen-barra > span {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  background: var(--estado-color);
+  transition: width 0.4s ease;
+}
+
+.ped-resumen-pct {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--estado-color);
+  align-self: flex-start;
+}
+
+/* --------------------------- Barra filtros --------------------------- */
+.ped-toolbar {
+  align-items: center;
+}
+
+.ped-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.ped-toolbar .search-box {
+  min-width: 260px;
+}
+
+.ped-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  margin-left: 0.35rem;
+  border-radius: 99px;
+  background-color: var(--bg);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ped-toolbar .tab.active .ped-tab-count {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* ------------------------------ Tabla -------------------------------- */
+.ped-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+.ped-tabla-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ped-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.ped-tabla thead {
+  background-color: var(--bg);
+}
+
+.ped-tabla th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.ped-tabla td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.ped-tabla tbody tr {
+  transition: background-color 0.18s ease;
+}
+
+.ped-tabla tbody tr:hover {
+  background-color: color-mix(in srgb, var(--brand-50) 70%, #fff);
+}
+
+.ped-tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ped-fila td:first-child {
+  box-shadow: inset 3px 0 0 transparent;
+}
+
+.ped-fila.estado-pendiente td:first-child {
+  box-shadow: inset 3px 0 0 #f59e0b;
+}
+
+.ped-fila.estado-en_transito td:first-child {
+  box-shadow: inset 3px 0 0 #0ea5e9;
+}
+
+.ped-fila.estado-entregado td:first-child {
+  box-shadow: inset 3px 0 0 #16a34a;
+}
+
+.ped-fila.estado-cancelado td:first-child {
+  box-shadow: inset 3px 0 0 #cbd5e1;
+}
+
+.ped-fila.estado-cancelado td {
+  opacity: 0.72;
+}
+
+.ped-producto {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 210px;
+}
+
+.ped-avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--brand-100), var(--brand-300));
+  color: var(--brand-800);
+}
+
+.ped-avatar .material-icons {
+  font-size: 1.25rem;
+}
+
+.ped-fila.estado-cancelado .ped-avatar {
+  background: var(--bg);
+  color: var(--text-muted);
+}
+
+.ped-producto > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.ped-producto strong {
+  font-size: 0.88rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ped-codigo {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+.ped-proveedor {
+  display: inline-block;
+  max-width: 190px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.ped-cantidad {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.ped-fechas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  white-space: nowrap;
+}
+
+.ped-fechas > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.ped-fechas .material-icons {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.ped-fechas .ped-entrega {
+  color: var(--brand-700);
+  font-weight: 600;
+}
+
+.ped-fechas .ped-entrega .material-icons {
+  color: var(--brand-600);
+}
+
+.ped-total {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ----------------------------- Estados ------------------------------- */
+.ped-estado {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.7rem;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ped-estado.pendiente {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.ped-estado.en_transito {
+  background-color: #e0f2fe;
+  color: #075985;
+}
+
+.ped-estado.entregado {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.ped-estado.cancelado {
+  background-color: var(--bg);
+  color: var(--text-muted);
+}
+
+.ped-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+}
+
+/* ------------------------------ Pie ---------------------------------- */
+.ped-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.85rem 1.1rem;
+  border-top: 1px solid var(--border);
+  background-color: var(--bg);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.ped-pie strong {
+  color: var(--text);
+}
+
+/* ----------------------------- Modales ------------------------------- */
+.ped-modal {
+  max-width: 560px;
+}
+
+.ped-modal-sub {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.ped-modal .modal-header h2 {
+  font-size: 1.2rem;
+}
+
+.ped-resumen-orden {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-50) 80%, #fff), #fff);
+  border: 1px dashed color-mix(in srgb, var(--brand-500) 35%, var(--border));
+}
+
+.ped-resumen-orden > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.82rem;
+}
+
+.ped-resumen-orden span {
+  color: var(--text-muted);
+}
+
+.ped-resumen-orden strong {
+  color: var(--text);
+  text-align: right;
+}
+
+.ped-total-destacado {
+  font-size: 1.1rem;
+  color: var(--brand-700) !important;
+}
+
+.ped-detalle-estado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.ped-detalle-estado strong {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.ped-detalle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1.25rem;
+  padding: 1rem;
+  background-color: var(--bg);
+  border-radius: var(--radius-sm);
+}
+
+.ped-detalle-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.ped-detalle-grid span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.ped-detalle-grid strong {
+  font-size: 0.86rem;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.ped-timeline {
+  display: flex;
+  margin-top: 1.25rem;
+  padding: 0 0.25rem;
+}
+
+.ped-paso {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ped-paso::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: -50%;
+  width: 100%;
+  height: 3px;
+  background-color: var(--border);
+  z-index: 0;
+}
+
+.ped-paso:first-child::before {
+  display: none;
+}
+
+.ped-paso.completado::before {
+  background-color: var(--brand-400);
+}
+
+.ped-paso-icono {
+  position: relative;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1rem;
+  background-color: var(--bg);
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+}
+
+.ped-paso.completado .ped-paso-icono {
+  background-color: var(--brand-500);
+  border-color: var(--brand-500);
+  color: #fff;
+}
+
+.ped-paso.actual .ped-paso-icono {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand-500) 20%, transparent);
+}
+
+.ped-paso-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.ped-paso.completado .ped-paso-label {
+  color: var(--brand-700);
+}
+
+.ped-cancelado {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-sm);
+  background-color: #fee2e2;
+  color: #991b1b;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.ped-cancelado .material-icons {
+  font-size: 1.2rem;
+}
+
+/* ---------------------------- Responsive ----------------------------- */
+@media (max-width: 768px) {
+  .ped-toolbar-right {
+    width: 100%;
+  }
+
+  .ped-toolbar .search-box {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .ped-detalle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ped-pie {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

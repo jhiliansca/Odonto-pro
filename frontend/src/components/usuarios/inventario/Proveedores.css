@@ -1,0 +1,235 @@
+.prov-subtitulo {
+  margin: 0.35rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.prov-mensaje {
+  margin-bottom: 1rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, 10px);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.prov-mensaje.ok {
+  background-color: var(--success-bg);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.prov-mensaje.error {
+  background-color: var(--danger-bg);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.prov-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.prov-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1.1rem;
+  text-align: left;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid #059669;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prov-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.prov-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md, 10px);
+  background: linear-gradient(135deg, #a7f3d0, #10b981);
+  color: #065f46;
+}
+
+.prov-avatar .material-icons {
+  font-size: 1.4rem;
+}
+
+.prov-cuerpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.prov-cuerpo > strong {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.prov-categoria {
+  align-self: flex-start;
+  padding: 0.15rem 0.55rem;
+  border-radius: 99px;
+  background-color: #e0f2fe;
+  color: #075985;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.prov-dato {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.79rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prov-dato .material-icons {
+  font-size: 0.9rem;
+  color: #059669;
+  flex-shrink: 0;
+}
+
+.prov-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--border);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.prov-footer strong {
+  color: var(--success);
+  font-size: 0.88rem;
+}
+
+.prov-footer-derecho {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.prov-acciones {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+.prov-acciones .icon-button,
+.prov-detalle-actions .icon-button {
+  width: 30px;
+  height: 30px;
+}
+
+.prov-acciones .icon-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.prov-card > .inv-badge {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  text-transform: capitalize;
+}
+
+.prov-modal {
+  max-width: 960px;
+  width: 92vw;
+  max-height: 86vh;
+  overflow-y: auto;
+}
+
+.prov-detalle-actions {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.prov-detalle-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+.prov-detalle-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.prov-detalle-meta .material-icons {
+  font-size: 1rem;
+  color: #059669;
+}
+
+.prov-tabla-wrapper {
+  overflow-x: auto;
+}
+
+.prov-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.prov-tabla th {
+  text-align: left;
+  padding: 0.6rem 0.7rem;
+  border-bottom: 2px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.prov-tabla td {
+  padding: 0.6rem 0.7rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 0.82rem;
+}
+
+.prov-tabla td strong,
+.prov-tabla td small {
+  display: block;
+}
+
+.prov-tabla td small {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+@media (max-width: 768px) {
+  .prov-grid {
+    grid-template-columns: 1fr;
+  }
+}
