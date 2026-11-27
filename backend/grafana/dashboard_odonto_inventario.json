@@ -1,0 +1,382 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_MYSQL",
+      "label": "MySQL (mundo_animal)",
+      "description": "Conexión SQL a la base de datos local con los datos reales de ODONTO-PRO",
+      "type": "datasource",
+      "pluginId": "mysql",
+      "pluginName": "MySQL"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Panel de inventario de ODONTO-PRO alimentado por el catálogo real de 157 procedimientos y 96 insumos (backend/seed/sembrarCatalogo.js). Muestra valoración de stock, alertas de stock mínimo, uso del catálogo y movimientos registrados.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "description": "Valor monetario total del stock actual (Σ precio × stock).",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 100000 },
+              { "color": "red", "value": 150000 }
+            ]
+          },
+          "unit": "currency"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 6, "w": 8, "x": 0, "y": 0 },
+      "id": 1,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "editorMode": "code",
+          "format": "table",
+          "rawSql": "SELECT ROUND(COALESCE(SUM(m.precio * m.stock), 0), 2) AS valor_total\nFROM materiales m;",
+          "refId": "A"
+        }
+      ],
+      "title": "Valor total del inventario",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "description": "Cantidad de insumos con stock por debajo del mínimo configurado.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "decimals": 0,
+          "mappings": [],
+          "max": 10,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 3 }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 6, "w": 5, "x": 8, "y": 0 },
+      "id": 2,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "editorMode": "code",
+          "format": "table",
+          "rawSql": "SELECT COALESCE(SUM(m.stock < m.stock_minimo), 0) AS insumos_criticos\nFROM materiales m\nWHERE m.stock_minimo > 0;",
+          "refId": "A"
+        }
+      ],
+      "title": "Insumos bajo stock mínimo",
+      "type": "gauge"
+    },
+    {
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "description": "El catálogo real no incluye precios: muestra cuántos insumos requieren precio para valorar el stock.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }, { "color": "red", "value": 1 }]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 6, "w": 5, "x": 13, "y": 0 },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "editorMode": "code",
+          "format": "table",
+          "rawSql": "SELECT COUNT(*) AS insumos_sin_precio\nFROM materiales m\nWHERE m.precio = 0;",
+          "refId": "A"
+        }
+      ],
+      "title": "Insumos sin precio cargado",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "description": "Valor del inventario agrupado por categoría de insumo.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] },
+          "unit": "currency"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "options": {
+        "displayLabels": ["percent"],
+        "legend": { "displayMode": "list", "placement": "right", "showLegend": true },
+        "pieType": "donut",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "tooltip": { "mode": "single", "sort": "none" }
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "editorMode": "code",
+          "format": "table",
+          "rawSql": "SELECT m.categoria AS Categoría,\n       ROUND(COALESCE(SUM(m.precio * m.stock), 0), 2) AS valor_total\nFROM materiales m\nGROUP BY m.categoria\nORDER BY valor_total DESC;",
+          "refId": "A"
+        }
+      ],
+      "title": "Valoración por categoría",
+      "type": "piechart"
+    },
+    {
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "description": "Insumos con stock por debajo del mínimo, ordenados por severidad.",
+      "fieldConfig": { "defaults": { "custom": { "align": "auto", "displayMode": "auto", "inspect": false } }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "id": 5,
+      "options": {
+        "cellHeight": "sm",
+        "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+        "showHeader": true,
+        "sortBy": [{ "desc": false, "displayName": "Diferencia" }]
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "editorMode": "code",
+          "format": "table",
+          "rawSql": "SELECT\n  m.nombre                                              AS Insumo,\n  m.categoria                                           AS Categoria,\n  m.unidad                                              AS Unidad,\n  m.stock                                               AS Stock,\n  m.stock_minimo                                        AS Minimo,\n  (m.stock - m.stock_minimo)                            AS Diferencia,\n  CASE\n    WHEN m.stock_minimo <= 0 THEN 0\n    ELSE ROUND((m.stock - m.stock_minimo) / m.stock_minimo * 100, 1)\n  END                                                   AS `Sobre minimo %`,\n  CASE\n    WHEN m.stock_minimo > 0 AND m.stock < m.stock_minimo / 2 THEN 'CRITICO'\n    WHEN m.stock < m.stock_minimo                       THEN 'BAJO'\n    ELSE 'OK'\n  END                                                   AS Severidad,\n  ROUND(m.precio * m.stock, 2)                          AS `Valor stock (Bs)`\nFROM materiales m\nWHERE m.stock_minimo > 0 AND m.stock <= m.stock_minimo\nORDER BY (m.stock / NULLIF(m.stock_minimo, 0)) ASC;",
+          "refId": "A"
+        }
+      ],
+      "title": "Alertas de stock mínimo",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": { "excludeByName": {}, "indexByName": {}, "renameByName": {} }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "description": "Insumos del catálogo real con más procedimientos que los requieren, según la planilla de 157 ítems.",
+      "fieldConfig": { "defaults": { "custom": { "align": "auto", "displayMode": "auto", "inspect": false } }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+      "id": 6,
+      "options": {
+        "cellHeight": "sm",
+        "footer": { "countRows": false, "fields": "", "reducer": ["sum"], "show": false },
+        "showHeader": true,
+        "sortBy": [{ "desc": false, "displayName": "Vence" }]
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "editorMode": "code",
+          "format": "table",
+          "rawSql": "SELECT\n  u.nombre                                              AS Insumo,\n  u.categoria                                           AS Categoria,\n  u.unidad                                              AS Unidad,\n  u.procedimientos                                      AS Procedimientos,\n  u.usos                                                AS Usos,\n  u.`cantidadRequerida`                                 AS `Cantidad requerida`\nFROM vw_materiales_uso u\nWHERE u.procedimientos > 0\nORDER BY u.procedimientos DESC, u.usos DESC\nLIMIT 30;",
+          "refId": "A"
+        }
+      ],
+      "title": "Insumos más usados en el catálogo",
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "description": "Consumo diario de insumos (salidas) y reabastecimientos (entradas) del historial real.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Unidades",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 4,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "salidas" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } },
+              { "id": "displayName", "value": "Salidas (consumo)" }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "entradas" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } },
+              { "id": "displayName", "value": "Entradas (reabastecimiento)" }
+            ]
+          }
+        ]
+      },
+      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 14 },
+      "id": 7,
+      "options": {
+        "legend": { "calcs": ["sum", "mean"], "displayMode": "table", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawSql": "SELECT\n  DATE(m.fecha)                                          AS time,\n  SUM(CASE WHEN m.tipo = 'SALIDA'  THEN m.cantidad ELSE 0 END) AS salidas,\n  SUM(CASE WHEN m.tipo = 'ENTRADA' THEN m.cantidad ELSE 0 END) AS entradas\nFROM movimientos_materiales m\nWHERE $__timeFilter(m.fecha)\nGROUP BY DATE(m.fecha)\nORDER BY time ASC;",
+          "refId": "A"
+        }
+      ],
+      "title": "Consumo temporal de insumos",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "description": "Insumos con mayor volumen de consumo en el periodo seleccionado.",
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Unidades",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 23 },
+      "id": 8,
+      "options": {
+        "legend": { "calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "single", "sort": "none" }
+      },
+      "pluginVersion": "10.4.0",
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "editorMode": "code",
+          "format": "table",
+          "rawSql": "SELECT\n  mat.nombre                                            AS Insumo,\n  SUM(m.cantidad)                                       AS Unidades\nFROM movimientos_materiales m\nJOIN materiales mat ON mat.id = m.material_id\nWHERE m.tipo = 'SALIDA'\n  AND $__timeFilter(m.fecha)\nGROUP BY mat.id, mat.nombre\nORDER BY Unidades DESC\nLIMIT 10;",
+          "refId": "A"
+        }
+      ],
+      "title": "Top 10 insumos más consumidos",
+      "type": "barchart"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "tags": ["odonto", "inventario", "catalogo-real"],
+  "templating": { "list": [] },
+  "time": { "from": "now-60d", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "ODONTO-PRO · Inventario (datos reales)",
+  "uid": "odonto-inv-real",
+  "version": 1,
+  "weekStart": ""
+}

@@ -1,5 +1,4 @@
 
-```
 
 Otros comandos (disponibles desde la raíz):
 
