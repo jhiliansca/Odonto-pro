@@ -1,0 +1,137 @@
+/* =============================================================================
+   Movimientos de inventario — Tarjetas KPI (targets) interactivas
+   ============================================================================= */
+
+.mov-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mov-kpi {
+  --kpi-color: var(--brand-600);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.1rem 1.2rem 1.25rem;
+  border-radius: var(--radius);
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--kpi-color) 12%, #fff) 0%,
+    #fff 62%
+  );
+  border: 1px solid color-mix(in srgb, var(--kpi-color) 24%, var(--border));
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.mov-kpi::after {
+  content: '';
+  position: absolute;
+  right: -34px;
+  top: -34px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--kpi-color) 10%, transparent);
+  pointer-events: none;
+}
+
+.mov-kpi:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, var(--kpi-color) 48%, var(--border));
+}
+
+.mov-kpi.is-active {
+  border-color: var(--kpi-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--kpi-color) 22%, transparent),
+    var(--shadow-md);
+}
+
+.mov-kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.mov-kpi-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--kpi-color) 78%, #fff),
+    var(--kpi-color)
+  );
+  box-shadow: 0 10px 18px -10px color-mix(in srgb, var(--kpi-color) 75%, transparent);
+}
+
+.mov-kpi-icon .material-icons {
+  font-size: 1.4rem;
+}
+
+.mov-kpi-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--kpi-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.mov-kpi-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.mov-kpi-meta {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.mov-kpi-bar {
+  margin-top: 0.15rem;
+  height: 6px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--kpi-color) 14%, var(--bg));
+  overflow: hidden;
+}
+
+.mov-kpi-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--kpi-color) 70%, #fff),
+    var(--kpi-color)
+  );
+  transition: width 0.45s ease;
+}
+
+@media (max-width: 480px) {
+  .mov-kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mov-kpi,
+  .mov-kpi-bar > span {
+    transition: none;
+  }
+}
