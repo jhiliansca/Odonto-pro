@@ -1,39 +1,4 @@
-# ODONTO-PRO
 
-Aplicación web y app para la Clínica Odontológica Unifranz.
-
-## Estructura
-
-```text
-frontend/   React + TypeScript + Vite (puerto 5173)
-backend/    Express 5 + MySQL (puerto 3001)
-scripts/    Scripts de arranque conjunto
-```
-
-La fuente real del catálogo está en `backend/seed/data/Insumos Clínica Odontológica - CBB (1) - copia.xlsx` (157 ítems).
-
-## Requisitos
-
-- Node.js 18+
-- MySQL 8+ en `localhost:3306`
-- Usuario MySQL configurable en `backend/.env` (archivo no versionado)
-
-## Instalación y arranque
-
-```bash
-npm install --prefix backend
-npm install --prefix frontend
-npm run setup
-npm run dev
-```
-
-`npm run setup` crea `OdontoproDB`, aplica `backend/mysql/odontopro_schema.sql`, carga el catálogo real y registra los usuarios iniciales. El backend también asegura el esquema automáticamente al arrancar.
-
-`npm run dev` levanta backend y frontend a la vez. Para levantarlos por separado:
-
-```bash
-npm run dev:backend
-npm run dev:frontend
 ```
 
 Otros comandos (disponibles desde la raíz):
